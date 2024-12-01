@@ -51,8 +51,8 @@ class GameEngine {
       }
 
       // Add Boost strategy cards
-      for (let i = 1; i <= 4; i++) {
-          this.playerDeck.push(new Card(`Boost-${i}`, "strategy", `/assets/images/strategy/boost-${i}.png?version=1.0`, 1, 2, { type: "boost", value: 1000 }));
+      for (let i = 9; i <= 10; i++) {
+          this.playerDeck.push(new Card(`Boost-${i}`, "strategy", `/assets/images/strategy/strategy-${i}.png?version=1.0`, 1, 2, { type: "boost", value: 1000 }));
       }
 
       // Add Energy cards
