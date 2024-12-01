@@ -34,6 +34,7 @@ class GameEngine {
     }
 
     this.render();
+    document.getElementById("next-turn").addEventListener("click", () => this.nextTurn());
   }
 
   buildDeck() {
@@ -105,6 +106,31 @@ class GameEngine {
       this.logAction("Not enough energy to attack!");
     }
     this.render();
+  }
+
+  nextTurn() {
+    this.turnCounter++;
+    this.logAction(`Turn ${this.turnCounter} started.`);
+
+    // Enemies act
+    this.enemyZone.forEach((enemy) => {
+      if (enemy.effect && enemy.effect.type === "burn") {
+        this.burnHero();
+      }
+    });
+
+    // Draw new cards for the player
+    this.drawCard();
+    this.drawCard();
+
+    this.render();
+  }
+
+  burnHero() {
+    if (this.playerZone.length > 0) {
+      const burnedHero = this.playerZone.shift();
+      this.logAction(`${burnedHero.name} was burned by an enemy effect!`);
+    }
   }
 
   logAction(action) {
