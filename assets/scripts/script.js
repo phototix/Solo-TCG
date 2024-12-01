@@ -156,6 +156,9 @@ class GameEngine {
   }
 
   attackEnemy(heroIndex, enemyIndex) {
+      // Increment turn on every attack
+      this.incrementTurn();
+
       const hero = this.playerZone[heroIndex];
       const enemy = this.enemyZone[enemyIndex];
 
@@ -215,7 +218,12 @@ class GameEngine {
 
       // Check for victory
       if (this.enemyZone.length === 0) {
-          this.endGame();
+          this.endGame("You won!");
+      }
+
+      // Check if the player loses because they have no heroes left by turn 15
+      if (this.turnCounter >= 15 && this.playerZone.length === 0) {
+          this.endGame("You lost! No more heroes in your deck by turn 15.");
       }
 
       this.render(); // Re-render the game state
