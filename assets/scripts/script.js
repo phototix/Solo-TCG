@@ -134,6 +134,11 @@ class GameEngine {
           this.playerZone.splice(heroIndex, 1); // Remove defeated hero
       }
 
+      // Check for victory
+      if (this.enemyZone.length === 0) {
+          this.endGame();
+      }
+
       this.render(); // Re-render the game state
   }
 
@@ -164,6 +169,24 @@ class GameEngine {
 
   logAction(action) {
     this.log.innerText = action;
+  }
+
+  endGame() {
+      // Show the Bootstrap modal
+      const endGameModal = new bootstrap.Modal(document.getElementById('endGameModal'));
+      endGameModal.show();
+
+      // Add an event listener for the restart button
+      const restartButton = document.getElementById('restartGameBtn');
+      restartButton.addEventListener('click', () => {
+          this.restartGame();
+          endGameModal.hide();
+      });
+  }
+
+  restartGame() {
+      this.initializeGame(); // Reset game state
+      this.render();         // Re-render the game
   }
 
   render() {

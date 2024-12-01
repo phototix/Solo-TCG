@@ -54,6 +54,16 @@ h1, h2 {
     text-align: center;
 }
 
+.modal-header {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.modal-footer .btn-primary {
+  background-color: #007BFF;
+  border-color: #007BFF;
+}
+
 #status {
   margin: 20px;
   text-align: center;
