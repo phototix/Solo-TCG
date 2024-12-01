@@ -345,28 +345,27 @@ class GameEngine {
 
       energyZoneDiv.appendChild(energyCardsDiv);
 
-      // Update energy pool display
-      document.getElementById("energy-pool").innerText = this.energyPool;
-
       // Render enemy zone
       const enemyDiv = document.getElementById("enemy-cards");
       enemyDiv.innerHTML = "";
       this.enemyZone.forEach((card, index) => {
           const cardDiv = document.createElement("div");
           cardDiv.className = "game-card";
-          cardDiv.style.backgroundImage = url(${card.image});
+          cardDiv.style.backgroundImage = `url(${card.image})`;
 
           // Card details overlay
           const detailsDiv = document.createElement("div");
           detailsDiv.className = "card-details";
-          detailsDiv.innerText = ${card.name || "Enemy"}\nAttack: ${card.attack || 0}\nHealth: ${card.health || 0};
+          detailsDiv.innerText = `${card.name || "Enemy"}\nAttack: ${card.attack || 0}\nHealth: ${card.health || 0}`;
           cardDiv.appendChild(detailsDiv);
 
           // Enemy attack interaction
           cardDiv.onclick = () => this.attackEnemy(0, index); // Temporary logic for attacking with the first hero
           enemyDiv.appendChild(cardDiv);
       });
-      
+
+      // Update energy pool display
+      document.getElementById("energy-pool").innerText = this.energyPool;
   }
 
 }
