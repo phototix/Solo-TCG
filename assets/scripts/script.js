@@ -306,6 +306,9 @@ class GameEngine {
       this.energyPool = 0;
       this.turnCounter = 0;
 
+      // Reset the boost status
+      updateBoostPool(0, 0);
+
       // Reset the log
       this.log.innerText = "Game restarted.";
 
