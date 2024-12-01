@@ -194,7 +194,13 @@ class GameEngine {
           // Card details overlay
           const detailsDiv = document.createElement("div");
           detailsDiv.className = "card-details";
-          detailsDiv.innerText = `${card.name || "Card"}\nAttack: ${card.attack || 0}\nHealth: ${card.health || 0}`;
+          if (card.type === "hero") {
+            detailsDiv.innerText = `${card.name || "Card"}\nAttack: ${card.attack || 0}\nHealth: ${card.health || 0}`;
+          } else if (card.type === "energy") {
+            detailsDiv.innerText = `${card.name || "Card"}`;
+          } else if (card.type === "strategy") {
+            detailsDiv.innerText = `${card.name || "Card"}\nHealth: ${card.health || 0}`;
+          }
           cardDiv.appendChild(detailsDiv);
 
           // Attach appropriate onclick handler
