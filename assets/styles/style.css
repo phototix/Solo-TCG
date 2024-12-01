@@ -115,6 +115,7 @@ h1, h2 {
 .energy-cards-stack{
   position: relative;
   top: -90px;
+  left: -50px;
 }
 
 #energy-pool-display h3 {
