@@ -148,11 +148,18 @@ class GameEngine {
       }
   }
 
-  // Function to update the boost pool display
   updateBoostPool(attackBoost, healthBoost) {
-      document.getElementById("strategy-pool").textContent = `Attack Boost: ${attackBoost + healthBoost}`;
-      document.getElementById("attack-pool").textContent = attackBoost;
-      document.getElementById("health-pool").textContent = healthBoost;
+      // Get the current values from the pool display
+      let currentAttackBoost = parseInt(document.getElementById("attack-pool").textContent) || 0;
+      let currentHealthBoost = parseInt(document.getElementById("health-pool").textContent) || 0;
+
+      // Sum the existing and new boost values
+      currentAttackBoost += attackBoost;
+      currentHealthBoost += healthBoost;
+
+      // Update the boost pool display with the new summed values
+      document.getElementById("attack-pool").textContent = currentAttackBoost;
+      document.getElementById("health-pool").textContent = currentHealthBoost;
   }
 
   attackEnemy(heroIndex, enemyIndex) {
