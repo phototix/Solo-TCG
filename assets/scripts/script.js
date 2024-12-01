@@ -264,6 +264,9 @@ class GameEngine {
   }
 
   render() {
+      // Ensure playerZone is always an array
+      this.playerZone = this.playerZone || [];
+
       // Render player hand
       const handDiv = document.getElementById("hand-cards");
       handDiv.innerHTML = "";
@@ -301,19 +304,23 @@ class GameEngine {
       // Render player zone (including energy cards)
       const zoneDiv = document.getElementById("zone-cards");
       zoneDiv.innerHTML = "";
-      this.playerZone.forEach((card, index) => {
-          const cardDiv = document.createElement("div");
-          cardDiv.className = "game-card";
-          cardDiv.style.backgroundImage = `url(${card.image})`;
+      if (Array.isArray(this.playerZone)) {
+          this.playerZone.forEach((card, index) => {
+              const cardDiv = document.createElement("div");
+              cardDiv.className = "game-card";
+              cardDiv.style.backgroundImage = `url(${card.image})`;
 
-          // Card details overlay
-          const detailsDiv = document.createElement("div");
-          detailsDiv.className = "card-details";
-          detailsDiv.innerText = `${card.name || "Card"}\nAttack: ${card.attack || 0}\nHealth: ${card.health || 0}`;
-          cardDiv.appendChild(detailsDiv);
+              // Card details overlay
+              const detailsDiv = document.createElement("div");
+              detailsDiv.className = "card-details";
+              detailsDiv.innerText = `${card.name || "Card"}\nAttack: ${card.attack || 0}\nHealth: ${card.health || 0}`;
+              cardDiv.appendChild(detailsDiv);
 
-          zoneDiv.appendChild(cardDiv);
-      });
+              zoneDiv.appendChild(cardDiv);
+          });
+      } else {
+          console.error("playerZone is not an array:", this.playerZone);
+      }
 
       // Render energy cards (showing a maximum of 3 stacked together)
       const energyZoneDiv = document.getElementById("player-zone");
@@ -360,6 +367,7 @@ class GameEngine {
       // Update strategy pool display
       document.getElementById("strategy-pool").innerText = this.strategyPool.length;
   }
+
 
 }
 
