@@ -1,0 +1,50 @@
+/* styles.css */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#game-container {
+  max-width: 900px;
+  margin: 20px;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+.card-area {
+  margin: 20px 0;
+}
+
+#hand-cards, #zone-cards, #enemy-cards {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.card {
+  width: 100px;
+  height: 150px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-size: cover;
+  background-position: center;
+}
+
+#status {
+  margin: 20px;
+  text-align: center;
+}
+
+#log {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
