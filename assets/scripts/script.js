@@ -128,9 +128,10 @@ class GameEngine {
                   }
               });
 
-              // Log the boost action and add the boost card to the boost pool
+              // Add boost card to the boost pool
+              this.strategyPool.push(card); // Store applied boost card in the strategy pool
+
               this.logAction(`All heroes' attack increased by ${attackBoost} due to Boost card.`);
-              this.boostPool.push(card); // Add to boost pool
           } else {
               this.logAction("This strategy card doesn't have a valid effect.");
           }
@@ -297,40 +298,21 @@ class GameEngine {
           handDiv.appendChild(cardDiv);
       });
 
-      // Render player zone (including energy and strategy cards)
+      // Render player zone (including energy cards)
       const zoneDiv = document.getElementById("zone-cards");
       zoneDiv.innerHTML = "";
-      
-      // Render hero cards in player zone
       this.playerZone.forEach((card, index) => {
           const cardDiv = document.createElement("div");
           cardDiv.className = "game-card";
           cardDiv.style.backgroundImage = `url(${card.image})`;
 
-          // Card details overlay for hero cards
+          // Card details overlay
           const detailsDiv = document.createElement("div");
           detailsDiv.className = "card-details";
           detailsDiv.innerText = `${card.name || "Card"}\nAttack: ${card.attack || 0}\nHealth: ${card.health || 0}`;
           cardDiv.appendChild(detailsDiv);
 
           zoneDiv.appendChild(cardDiv);
-      });
-
-      // Render strategy cards in player zone
-      this.playerZone.forEach((card, index) => {
-          if (card.type === "strategy") {
-              const cardDiv = document.createElement("div");
-              cardDiv.className = "game-card";
-              cardDiv.style.backgroundImage = `url(${card.image})`;
-
-              // Strategy card details overlay
-              const detailsDiv = document.createElement("div");
-              detailsDiv.className = "card-details";
-              detailsDiv.innerText = `${card.name || "Strategy Card"}\nEffect: ${card.effect ? `Boost Attack +${card.effect.value}` : 'No Effect'}`;
-              cardDiv.appendChild(detailsDiv);
-
-              zoneDiv.appendChild(cardDiv);
-          }
       });
 
       // Render energy cards (showing a maximum of 3 stacked together)
@@ -357,33 +339,7 @@ class GameEngine {
 
       // Update energy pool display
       document.getElementById("energy-pool").innerText = this.energyPool;
-
-      // Render strategy boost pool display (show applied boost cards)
-      const boostPoolDiv = document.getElementById("boost-pool-display");
-      const strategyPoolSpan = document.getElementById("strategy-pool");
-      const strategyCardsDiv = document.getElementById("strategy-cards");
-      strategyCardsDiv.innerHTML = ""; // Clear the current strategy cards display
-      
-      if (this.boostPool.length > 0) {
-          strategyPoolSpan.innerText = this.boostPool.length; // Display number of boost cards used
-          this.boostPool.forEach(boostCard => {
-              const cardDiv = document.createElement("div");
-              cardDiv.className = "game-card";
-              cardDiv.style.backgroundImage = `url(${boostCard.image})`;
-
-              // Card details overlay for boost cards
-              const detailsDiv = document.createElement("div");
-              detailsDiv.className = "card-details";
-              detailsDiv.innerText = `${boostCard.name || "Boost Card"}\nEffect: Boost Attack +${boostCard.effect.value}`;
-              cardDiv.appendChild(detailsDiv);
-
-              strategyCardsDiv.appendChild(cardDiv);
-          });
-      } else {
-          strategyPoolSpan.innerText = "0"; // If no boost cards, show 0
-      }
   }
-
 
 }
 
