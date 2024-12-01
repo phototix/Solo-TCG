@@ -45,11 +45,17 @@ class GameEngine {
               this.playerDeck.push(new Card(`Hero-${i}`, "hero", `/assets/images/heroes/heroes-${i}.png?version=1.0`, attackValue, 7 - Math.floor(i / 3)));
           }
       }
-      
+
       for (let i = 1; i <= 8; i++) {
           this.playerDeck.push(new Card(`Strategy-${i}`, "strategy", `/assets/images/strategy/strategy-${i}.png?version=1.0`, 1, 2, { type: "health", value: 1 }));
       }
 
+      // Add Boost strategy cards
+      for (let i = 1; i <= 4; i++) {
+          this.playerDeck.push(new Card(`Boost-${i}`, "strategy", `/assets/images/strategy/boost-${i}.png?version=1.0`, 1, 2, { type: "boost", value: 1000 }));
+      }
+
+      // Add Energy cards
       for (let i = 0; i < 16; i++) {
           this.playerDeck.push(new Card("Energy", "energy", `/assets/images/energy/energy.png?version=1.0`));
       }
@@ -103,21 +109,34 @@ class GameEngine {
   useStrategy(cardIndex) {
       const card = this.playerHand[cardIndex];
 
-      if (card.type === "strategy" && card.effect && card.effect.type === "health") {
-          // Apply health boost to all heroes in player zone
-          const healthBoost = card.effect.value;
+      if (card.type === "strategy" && card.effect) {
+          if (card.effect.type === "health") {
+              // Apply health boost to all heroes in player zone
+              const healthBoost = card.effect.value;
+              this.playerZone.forEach(hero => {
+                  hero.health += healthBoost;
+              });
 
-          this.playerZone.forEach(hero => {
-              hero.health += healthBoost;
-          });
+              this.logAction(`All heroes' health increased by ${healthBoost}.`);
+          } else if (card.effect.type === "boost") {
+              // Apply attack boost to all heroes in player deck
+              const attackBoost = card.effect.value;
+              this.playerDeck.forEach(hero => {
+                  if (hero.type === "hero") {
+                      hero.attack += attackBoost; // Increase hero's attack
+                  }
+              });
 
-          this.logAction(`All heroes' health increased by ${healthBoost}.`);
+              this.logAction(`All heroes' attack increased by ${attackBoost} due to Boost card.`);
+          } else {
+              this.logAction("This strategy card doesn't have a valid effect.");
+          }
 
           // Remove the strategy card from the player's hand
           this.playerHand.splice(cardIndex, 1);
           this.render();
       } else {
-          this.logAction("This is not a valid strategy card or the strategy doesn't have a health effect.");
+          this.logAction("This is not a valid strategy card or the strategy doesn't have an effect.");
       }
   }
 
@@ -132,6 +151,12 @@ class GameEngine {
 
       if (!enemy) {
           this.logAction("No enemy to attack.");
+          return;
+      }
+
+      // Check if there is enough energy to attack
+      if (this.energyPool < 1) {
+          this.logAction("Not enough energy to attack!");
           return;
       }
 
@@ -150,6 +175,10 @@ class GameEngine {
           enemy.health -= enemy.attack;
           this.logAction(`${hero.name} and ${enemy.name} have the same attack. Both hero and enemy's health reduced by ${hero.attack}.`);
       }
+
+      // Decrease energy after the attack
+      this.energyPool -= 1;
+      this.logAction(`Energy pool decreased to ${this.energyPool} after attack.`);
 
       // Check if the enemy survives
       if (enemy.health <= 0) {
