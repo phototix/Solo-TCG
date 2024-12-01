@@ -156,8 +156,6 @@ class GameEngine {
   }
 
   attackEnemy(heroIndex, enemyIndex) {
-      // Increment turn on every attack
-      this.incrementTurn();
 
       const hero = this.playerZone[heroIndex];
       const enemy = this.enemyZone[enemyIndex];
