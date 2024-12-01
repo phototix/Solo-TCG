@@ -8,39 +8,41 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  min-height: 100vh;
 }
 
 /* Reset Bootstrap interference */
 #game-container {
   margin: 20px auto;
   max-width: 1200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-#next-turn {
-  margin-top: 10px;
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+/* Sticky player hand */
+#player-hand {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  background-color: #fff;
+  padding-bottom: 10px;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
 }
 
-#next-turn:hover {
-  background-color: #0056b3;
+#toggle-player-hand {
+  margin-bottom: 10px;
 }
 
-h1, h2 {
-  text-align: center;
-}
-
+/* Player and enemy zones */
 .card-area {
   margin-bottom: 20px;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #f8f9fa;
+  width: 100%;
 }
 
 .card-area h2 {
@@ -85,71 +87,41 @@ h1, h2 {
 }
 
 /* Specific styling for the game zones */
-#player-hand, #player-zone, #enemy-zone {
+#player-zone, #enemy-zone {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 #player-zone {
   position: relative;
 }
 
-#energy-cards {
+#energy-cards, #boost-pool-display {
   display: flex;
   position: relative;
-  width: 90px;  /* Width of energy card */
-  height: 120px; /* Height of energy card */
 }
 
 .energy-card {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
   width: 50px;
   height: 70px;
 }
 
-.energy-cards-stack{
-  position: relative;
-  top: 0px;
-  left: 0px;
+/* Mobile and desktop friendly view */
+@media (max-width: 768px) {
+  #player-hand {
+    width: 100%;
+    padding: 10px;
+  }
+  #hand-cards {
+    display: flex;
+    overflow-x: auto;
+  }
 }
 
-#energy-pool-display h3 {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-#hand-cards, #zone-cards, #enemy-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-/* Ensure modal doesn't interfere with the game area */
-.modal-backdrop {
-  z-index: 1050 !important;
-}
-
-.modal-header {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.modal-footer .btn-primary {
-  background-color: #007BFF;
-  border-color: #007BFF;
-}
-
-#status {
-  margin-top: 20px;
-  text-align: center;
-}
-
-#log {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #555;
+@media (min-width: 768px) {
+  #game-container {
+    max-width: 800px;
+  }
 }

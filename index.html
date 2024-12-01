@@ -15,7 +15,9 @@
 <body>
   <div id="game-container">
 
-    <div id="player-hand" class="card-area">
+    <!-- Player Hand with toggle button -->
+    <div id="player-hand" class="card-area sticky-bottom">
+      <button id="toggle-player-hand" class="btn btn-primary">Toggle Player Hand</button>
       <h2>Player Hand</h2>
       <div id="hand-cards"></div>
     </div>
@@ -74,6 +76,16 @@
       script.type = 'text/javascript';
       script.src = 'assets/scripts/script.js?version=' + new Date().getTime();
       document.head.appendChild(script);
+
+      // JavaScript to toggle player hand visibility
+      document.getElementById('toggle-player-hand').addEventListener('click', function() {
+          const playerHand = document.getElementById('player-hand');
+          if (playerHand.style.display === 'none') {
+              playerHand.style.display = 'flex';
+          } else {
+              playerHand.style.display = 'none';
+          }
+      });
   </script>
 </body>
 </html>
