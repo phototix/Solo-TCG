@@ -324,20 +324,24 @@ class GameEngine {
           handDiv.appendChild(cardDiv);
       });
 
-      // Render player zone (including energy cards)
+      // Render player zone (including heroes and their boosts)
       const zoneDiv = document.getElementById("zone-cards");
       zoneDiv.innerHTML = "";
-      this.playerZone.forEach((card, index) => {
+      this.playerZone.forEach((hero, index) => {
           const cardDiv = document.createElement("div");
           cardDiv.className = "game-card";
-          cardDiv.style.backgroundImage = `url(${card.image})`;
+          cardDiv.style.backgroundImage = `url(${hero.image})`;
 
           // Card details overlay
           const detailsDiv = document.createElement("div");
           detailsDiv.className = "card-details";
-          detailsDiv.innerText = `${card.name || "Card"}\nAttack: ${card.attack || 0}\nHealth: ${card.health || 0}`;
-          cardDiv.appendChild(detailsDiv);
 
+          // Show hero's stats and the boost status
+          const attackWithBoost = hero.attack + (this.attackBoost || 0);  // Apply attack boost if any
+          const healthWithBoost = hero.health + (this.healthBoost || 0);  // Apply health boost if any
+          detailsDiv.innerText = `${hero.name || "Hero"}\nAttack: ${attackWithBoost}\nHealth: ${healthWithBoost}`;
+
+          cardDiv.appendChild(detailsDiv);
           zoneDiv.appendChild(cardDiv);
       });
 
@@ -384,7 +388,11 @@ class GameEngine {
 
       // Update energy pool display
       document.getElementById("energy-pool").innerText = this.energyPool;
+
+      // Update boost pool display
+      this.updateBoostPool(this.attackBoost, this.healthBoost);
   }
+
 
 }
 
