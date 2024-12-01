@@ -10,9 +10,25 @@ body {
   flex-direction: column;
 }
 
+/* Reset Bootstrap interference */
 #game-container {
-  max-width: 900px;
-  margin: 20px;
+  margin: 20px auto;
+  max-width: 1200px;
+}
+
+#next-turn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#next-turn:hover {
+  background-color: #0056b3;
 }
 
 h1, h2 {
@@ -20,38 +36,70 @@ h1, h2 {
 }
 
 .card-area {
-  margin: 20px 0;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+}
+
+.card-area h2 {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Card styles */
+.card {
+  display: inline-block;
+  width: 100px;
+  height: 150px;
+  margin: 10px;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #000;
+  border-radius: 5px;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+  transition: 0.2s ease;
+}
+
+/* Card details overlay */
+.card-details {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  font-size: 12px;
+  text-align: center;
+  padding: 5px;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Specific styling for the game zones */
+#player-hand, #player-zone, #enemy-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #hand-cards, #zone-cards, #enemy-cards {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
 }
 
-.card {
-    position: relative;
-    width: 100px;
-    height: 150px;
-    background-size: cover;
-    background-position: center;
-    margin: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    overflow: hidden;
-}
-
-.card .card-details {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
-    color: white;
-    font-size: 12px;
-    padding: 5px;
-    box-sizing: border-box;
-    text-align: center;
+/* Ensure modal doesn't interfere with the game area */
+.modal-backdrop {
+  z-index: 1050 !important;
 }
 
 .modal-header {
@@ -65,7 +113,7 @@ h1, h2 {
 }
 
 #status {
-  margin: 20px;
+  margin-top: 20px;
   text-align: center;
 }
 
