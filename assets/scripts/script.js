@@ -128,9 +128,6 @@ class GameEngine {
                   }
               });
 
-              // Add boost card to the boost pool
-              this.strategyPool.push(card); // Store applied boost card in the strategy pool
-
               this.logAction(`All heroes' attack increased by ${attackBoost} due to Boost card.`);
           } else {
               this.logAction("This strategy card doesn't have a valid effect.");
