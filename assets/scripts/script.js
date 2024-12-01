@@ -229,6 +229,12 @@ class GameEngine {
   }
 
   nextTurn() {
+      // Check if the player has more than 10 cards in hand before proceeding
+      if (this.playerHand.length >= 10) {
+          this.logAction("You cannot proceed to the next turn with more than 10 cards in hand.");
+          return; // Stop further execution if the player has 10 or more cards
+      }
+
       this.turnCounter++;
       this.logAction(`Turn ${this.turnCounter} started.`);
 
