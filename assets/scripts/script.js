@@ -229,7 +229,7 @@ class GameEngine {
     // Enemies act
     this.enemyZone.forEach((enemy) => {
       if (enemy.effect && enemy.effect.type === "burn") {
-        this.burnHero();
+        // this.burnHero();
       }
     });
 
