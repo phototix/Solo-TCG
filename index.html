@@ -26,10 +26,20 @@
       <h2>Player Zone</h2>
       <div id="zone-cards"></div>
       <!-- Boost pool display in player zone -->
-      <div id="boost-pool-display">
-        <h3>Strategy Boost: <span id="strategy-pool"></span></h3>
-        <div id="boost-health">Attack:  <span id="attack-pool"></span></div>
-        <div id="boost-attack">Health:  <span id="health-pool"></span></div>
+      <div id="boost-pool-display" class="boost-pool">
+        <h3>Strategy Boost:</h3>
+        <div id="boost-health" class="boost-item">
+          <span class="boost-label">Attack: </span>
+          <div class="progress-bar-wrapper">
+            <div id="attack-pool" class="progress-bar"></div>
+          </div>
+        </div>
+        <div id="boost-attack" class="boost-item">
+          <span class="boost-label">Health: </span>
+          <div class="progress-bar-wrapper">
+            <div id="health-pool" class="progress-bar"></div>
+          </div>
+        </div>
       </div>
       <!-- Energy pool display in player zone -->
       <div id="energy-pool-display">
