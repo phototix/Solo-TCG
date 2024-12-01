@@ -316,7 +316,7 @@ class GameEngine {
       });
 
       // Render energy cards (showing a maximum of 3 stacked together)
-      const energyZoneDiv = document.getElementById("energy-pool-display");
+      const energyZoneDiv = document.getElementById("energy-cards");
       const energyCardsDiv = document.createElement("div");
       energyCardsDiv.className = "energy-cards-stack";
       energyCardsDiv.style.position = "relative";
