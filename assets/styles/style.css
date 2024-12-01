@@ -31,6 +31,10 @@ body {
   box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
 }
 
+#zone-cards{
+  min-height: 150px;
+}
+
 #toggle-player-hand {
   margin-bottom: 10px;
 }
