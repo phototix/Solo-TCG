@@ -207,7 +207,6 @@ body {
 
 @media (max-width: 768px) {
   #hand-cards {
-    flex-wrap: nowrap; /* Prevents wrapping of cards */
     gap: 10px; /* Adds space between the cards */
   }
 
