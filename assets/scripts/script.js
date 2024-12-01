@@ -84,15 +84,8 @@ class GameEngine {
       const card = this.playerHand[cardIndex];
 
       if (card.type === "energy") {
-          if (this.playerZone.length === 0) {
-              this.logAction("No heroes available to apply energy.");
-              return;
-          }
-
-          // Apply the energy card to the first hero (can be extended to allow selection)
-          const hero = this.playerZone[0];
-          hero.health += 1; // Add 1 health to the hero
-          this.logAction(`Energy applied to ${hero.name}. Hero health increased to ${hero.health}.`);
+          this.energyPool += 1; // Increase energy pool
+          this.logAction(`Energy card used. Energy pool increased to ${this.energyPool}.`);
 
           // Remove the energy card from the player's hand
           this.playerHand.splice(cardIndex, 1);
