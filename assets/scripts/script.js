@@ -130,21 +130,31 @@ class GameEngine {
           return;
       }
 
-      // Deduct attack from enemy health
-      enemy.health -= hero.health;
-
-      // If the enemy survives, deduct 1 health from the hero
-      if (enemy.health > 0) {
-          hero.health -= 1;
-          this.logAction(`Hero attacked ${enemy.name}. Enemy health reduced to ${enemy.health}, but hero health reduced by 1.`);
+      // Compare attack values
+      if (hero.attack < enemy.attack) {
+          // Hero's attack is lower than the enemy's attack: Hero loses health
+          hero.health -= enemy.attack;
+          this.logAction(`${hero.name} attacked ${enemy.name}, but hero's attack is lower. Hero health reduced by ${enemy.attack}.`);
+      } else if (hero.attack > enemy.attack) {
+          // Hero's attack is higher than the enemy's attack: Enemy loses health
+          enemy.health -= hero.attack;
+          this.logAction(`${hero.name} attacked ${enemy.name}, and hero's attack is higher. Enemy health reduced by ${hero.attack}.`);
       } else {
-          this.logAction(`Hero defeated ${enemy.name}!`);
+          // Both have the same attack: Both lose health
+          hero.health -= hero.attack;
+          enemy.health -= enemy.attack;
+          this.logAction(`${hero.name} and ${enemy.name} have the same attack. Both hero and enemy's health reduced by ${hero.attack}.`);
+      }
+
+      // Check if the enemy survives
+      if (enemy.health <= 0) {
+          this.logAction(`${enemy.name} was defeated!`);
           this.enemyZone.splice(enemyIndex, 1); // Remove defeated enemy
       }
 
-      // Check if hero survives
+      // Check if the hero survives
       if (hero.health <= 0) {
-          this.logAction(`Hero ${hero.name} was knocked out.`);
+          this.logAction(`${hero.name} was knocked out.`);
           this.playerZone.splice(heroIndex, 1); // Remove defeated hero
       }
 
