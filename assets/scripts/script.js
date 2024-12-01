@@ -43,7 +43,7 @@ class GameEngine {
       this.playerDeck.push(new Card(`Hero-${i}`, "hero", `/assets/images/heroes/heroes-${i}.png?version=1.0`, 5000 - i * 500, 7 - Math.floor(i / 3)));
     }
     for (let i = 1; i <= 8; i++) {
-      this.playerDeck.push(new Card(`Strategy-${i}`, "strategy", `/assets/images/strategy/strategy-${i}.png?version=1.0`, 0, 0, { type: "heal", value: 1 }));
+      this.playerDeck.push(new Card(`Strategy-${i}`, "strategy", `/assets/images/strategy/strategy-${i}.png?version=1.0`, 1, 2, { type: "heal", value: 1 }));
     }
     for (let i = 0; i < 16; i++) {
       this.playerDeck.push(new Card("Energy", "energy", `/assets/images/energy/energy.png?version=1.0`));
