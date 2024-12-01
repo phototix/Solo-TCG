@@ -256,8 +256,10 @@ class GameEngine {
     this.log.innerText = action;
   }
 
-  endGame() {
+  endGame(message) {
       const endGameModal = new bootstrap.Modal(document.getElementById('endGameModal'));
+      const endGameMessage = document.getElementById('endGameMessage');  // Assuming you have a place for the message in the modal
+      endGameMessage.textContent = message;  // Set the end game message dynamically
       endGameModal.show();
 
       // Add an event listener for the restart button
