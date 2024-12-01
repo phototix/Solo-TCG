@@ -91,6 +91,7 @@ class GameEngine {
     this.render();
   }
 
+  // Updated useEnergy method to add energy to the pool and update visuals
   useEnergy(cardIndex) {
       const card = this.playerHand[cardIndex];
 
@@ -126,6 +127,9 @@ class GameEngine {
                       hero.attack += attackBoost; // Increase hero's attack
                   }
               });
+
+              // Add boost card to the boost pool
+              this.strategyPool.push(card); // Store applied boost card in the strategy pool
 
               this.logAction(`All heroes' attack increased by ${attackBoost} due to Boost card.`);
           } else {
@@ -311,13 +315,16 @@ class GameEngine {
           zoneDiv.appendChild(cardDiv);
       });
 
-      // Render energy cards (showing multiple energy cards stacked together)
+      // Render energy cards (showing a maximum of 3 stacked together)
       const energyZoneDiv = document.getElementById("player-zone");
       const energyCardsDiv = document.createElement("div");
       energyCardsDiv.className = "energy-cards-stack";
       energyCardsDiv.style.position = "relative";
       
-      for (let i = 0; i < this.energyPool; i++) {
+      // Limit to 3 energy cards for better visual display
+      const energyCardCount = Math.min(this.energyPool, 3); // Show at most 3 cards
+
+      for (let i = 0; i < energyCardCount; i++) {
           const energyCardDiv = document.createElement("div");
           energyCardDiv.className = "game-card energy-card";
           energyCardDiv.style.backgroundImage = `url(/assets/images/energy/energy.png?version=1.0)`;
@@ -330,43 +337,28 @@ class GameEngine {
 
       energyZoneDiv.appendChild(energyCardsDiv);
 
-      // Render enemy zone
-      const enemyDiv = document.getElementById("enemy-cards");
-      enemyDiv.innerHTML = "";
-      this.enemyZone.forEach((card, index) => {
-          const cardDiv = document.createElement("div");
-          cardDiv.className = "game-card";
-          cardDiv.style.backgroundImage = `url(${card.image})`;
+      // Render boost pool (showing strategy cards applied)
+      const boostPoolDiv = document.getElementById("strategy-cards");
+      boostPoolDiv.innerHTML = "";
+      this.strategyPool.forEach((card) => {
+          const boostCardDiv = document.createElement("div");
+          boostCardDiv.className = "game-card";
+          boostCardDiv.style.backgroundImage = `url(${card.image})`;
 
-          // Card details overlay
+          // Card details overlay for boost cards
           const detailsDiv = document.createElement("div");
           detailsDiv.className = "card-details";
-          detailsDiv.innerText = `${card.name || "Enemy"}\nAttack: ${card.attack || 0}\nHealth: ${card.health || 0}`;
-          cardDiv.appendChild(detailsDiv);
+          detailsDiv.innerText = `${card.name || "Strategy"}\nEffect: Attack +${card.effect.value}`;
+          boostCardDiv.appendChild(detailsDiv);
 
-          // Enemy attack interaction
-          cardDiv.onclick = () => this.attackEnemy(0, index); // Temporary logic for attacking with the first hero
-          enemyDiv.appendChild(cardDiv);
+          boostPoolDiv.appendChild(boostCardDiv);
       });
 
-      // Update energy pool display (now showing stacked cards in player zone)
+      // Update energy pool display
       document.getElementById("energy-pool").innerText = this.energyPool;
-  }
 
-  // Updated useEnergy method to add energy to the pool and update visuals
-  useEnergy(cardIndex) {
-      const card = this.playerHand[cardIndex];
-
-      if (card.type === "energy") {
-          this.energyPool += 1; // Increase energy pool
-          this.logAction(`Energy card used. Energy pool increased to ${this.energyPool}.`);
-
-          // Remove the energy card from the player's hand
-          this.playerHand.splice(cardIndex, 1);
-          this.render();
-      } else {
-          this.logAction("This is not an energy card!");
-      }
+      // Update strategy pool display
+      document.getElementById("strategy-pool").innerText = this.strategyPool.length;
   }
 
 }
