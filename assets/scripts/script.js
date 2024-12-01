@@ -19,6 +19,8 @@ class GameEngine {
     this.energyPool = 0;
     this.enemyZone = [];
     this.turnCounter = 0;
+    document.getElementById("attack-pool").textContent = 0;
+    document.getElementById("health-pool").textContent = 0;
     this.log = document.getElementById("log");
   }
 
@@ -26,7 +28,8 @@ class GameEngine {
     this.buildDeck();
     this.shuffleDeck(this.playerDeck);
     this.shuffleDeck(this.enemyDeck);
-    this.updateBoostPool(0, 0);
+    document.getElementById("attack-pool").textContent = 0;
+    document.getElementById("health-pool").textContent = 0;
 
     for (let i = 0; i < 5; i++) this.drawCard();
 
