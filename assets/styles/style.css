@@ -52,7 +52,6 @@ h1, h2 {
 .card {
   display: inline-block;
   width: 100px;
-  height: 150px;
   margin: 10px;
   position: relative;
   background-size: cover;
