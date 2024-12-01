@@ -195,7 +195,7 @@ class GameEngine {
       handDiv.innerHTML = "";
       this.playerHand.forEach((card, index) => {
           const cardDiv = document.createElement("div");
-          cardDiv.className = "card";
+          cardDiv.className = "game-card";
           cardDiv.style.backgroundImage = `url(${card.image})`;
 
           // Card details overlay
@@ -223,7 +223,7 @@ class GameEngine {
       zoneDiv.innerHTML = "";
       this.playerZone.forEach((card, index) => {
           const cardDiv = document.createElement("div");
-          cardDiv.className = "card";
+          cardDiv.className = "game-card";
           cardDiv.style.backgroundImage = `url(${card.image})`;
 
           // Card details overlay
@@ -240,7 +240,7 @@ class GameEngine {
       enemyDiv.innerHTML = "";
       this.enemyZone.forEach((card, index) => {
           const cardDiv = document.createElement("div");
-          cardDiv.className = "card";
+          cardDiv.className = "game-card";
           cardDiv.style.backgroundImage = `url(${card.image})`;
 
           // Card details overlay
