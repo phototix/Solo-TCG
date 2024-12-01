@@ -297,21 +297,40 @@ class GameEngine {
           handDiv.appendChild(cardDiv);
       });
 
-      // Render player zone (including energy cards)
+      // Render player zone (including energy and strategy cards)
       const zoneDiv = document.getElementById("zone-cards");
       zoneDiv.innerHTML = "";
+      
+      // Render hero cards in player zone
       this.playerZone.forEach((card, index) => {
           const cardDiv = document.createElement("div");
           cardDiv.className = "game-card";
           cardDiv.style.backgroundImage = `url(${card.image})`;
 
-          // Card details overlay
+          // Card details overlay for hero cards
           const detailsDiv = document.createElement("div");
           detailsDiv.className = "card-details";
           detailsDiv.innerText = `${card.name || "Card"}\nAttack: ${card.attack || 0}\nHealth: ${card.health || 0}`;
           cardDiv.appendChild(detailsDiv);
 
           zoneDiv.appendChild(cardDiv);
+      });
+
+      // Render strategy cards in player zone
+      this.playerZone.forEach((card, index) => {
+          if (card.type === "strategy") {
+              const cardDiv = document.createElement("div");
+              cardDiv.className = "game-card";
+              cardDiv.style.backgroundImage = `url(${card.image})`;
+
+              // Strategy card details overlay
+              const detailsDiv = document.createElement("div");
+              detailsDiv.className = "card-details";
+              detailsDiv.innerText = `${card.name || "Strategy Card"}\nEffect: ${card.effect ? `Boost Attack +${card.effect.value}` : 'No Effect'}`;
+              cardDiv.appendChild(detailsDiv);
+
+              zoneDiv.appendChild(cardDiv);
+          }
       });
 
       // Render energy cards (showing a maximum of 3 stacked together)
