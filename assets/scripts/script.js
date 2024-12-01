@@ -131,7 +131,7 @@ class GameEngine {
       }
 
       // Deduct attack from enemy health
-      enemy.health -= hero.attack;
+      enemy.health -= hero.health;
 
       // If the enemy survives, deduct 1 health from the hero
       if (enemy.health > 0) {
