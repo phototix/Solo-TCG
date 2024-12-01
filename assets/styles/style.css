@@ -32,7 +32,9 @@ body {
 }
 
 #zone-cards{
-  min-height: 150px;
+  min-height: 170px;
+  max-height: 170px;
+  overflow: hidden;
 }
 
 #toggle-player-hand {
@@ -198,7 +200,8 @@ body {
   display: flex;
   overflow-x: auto;  /* Enables horizontal scrolling when needed */
   overflow-y: hidden; /* Prevents vertical scrolling */
-  min-height: 150px;   /* Fixes the minimum height */
+  min-height: 170px;   /* Fixes the minimum height */
+  max-height: 170px;   /* Fixes the minimum height */
   padding-bottom: 10px; /* Some space for visual comfort when scrolling */
 }
 
