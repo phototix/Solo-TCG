@@ -228,21 +228,40 @@ class GameEngine {
   }
 
   nextTurn() {
-    this.turnCounter++;
-    this.logAction(`Turn ${this.turnCounter} started.`);
+      this.turnCounter++;
+      this.logAction(`Turn ${this.turnCounter} started.`);
 
-    // Enemies act
-    this.enemyZone.forEach((enemy) => {
-      if (enemy.effect && enemy.effect.type === "burn") {
-        // this.burnHero();
+      // Check if the game should end based on turn and player deck conditions
+      if (this.turnCounter >= 15 && this.playerDeck.length === 0 && this.playerZone.length === 0) {
+          this.endGame("You lost! You ran out of heroes in your deck and zone.");
+          return; // Stop further execution if the game is over
       }
-    });
 
-    // Draw new cards for the player
-    this.drawCard();
-    this.drawCard();
+      // Check if the enemy is defeated (no enemies left in their zone)
+      if (this.enemyZone.length === 0) {
+          this.endGame("You won! All enemy heroes have been defeated.");
+          return; // Stop further execution if the game is won
+      }
 
-    this.render();
+      // Enemies act
+      this.enemyZone.forEach((enemy) => {
+        if (enemy.effect && enemy.effect.type === "burn") {
+          // Example of burn effect (implement logic if needed)
+          // this.burnHero();
+        }
+      });
+
+      // Draw new cards for the player
+      this.drawCard();
+      this.drawCard();
+
+      // Check for game loss if player has no heroes left in the deck and zone
+      if (this.turnCounter >= 15 && this.playerDeck.length === 0 && this.playerZone.length === 0) {
+          this.endGame("You lost! You have no heroes left in your deck and zone after turn 15.");
+          return; // Stop the turn if the game ends
+      }
+
+      this.render(); // Re-render the game state
   }
 
   burnHero() {
