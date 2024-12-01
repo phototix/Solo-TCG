@@ -175,6 +175,8 @@ class GameEngine {
           return;
       }
 
+      console.log(hero.attack + "& "+ enemy.attack);
+
       // Compare attack values
       if (hero.attack < enemy.attack) {
           // Hero's attack is lower than the enemy's attack: Hero loses health
