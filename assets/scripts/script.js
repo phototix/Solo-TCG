@@ -111,9 +111,13 @@ class GameEngine {
       const card = this.playerHand[cardIndex];
 
       if (card.type === "strategy" && card.effect) {
+          // Update the strategy pool display variables
+          let healthBoost = 0;
+          let attackBoost = 0;
+
           if (card.effect.type === "health") {
               // Apply health boost to all heroes in player zone
-              const healthBoost = card.effect.value;
+              healthBoost = card.effect.value;
               this.playerZone.forEach(hero => {
                   hero.health += healthBoost;
               });
@@ -121,7 +125,7 @@ class GameEngine {
               this.logAction(`All heroes' health increased by ${healthBoost}.`);
           } else if (card.effect.type === "boost") {
               // Apply attack boost to all heroes in player deck
-              const attackBoost = card.effect.value;
+              attackBoost = card.effect.value;
               this.playerDeck.forEach(hero => {
                   if (hero.type === "hero") {
                       hero.attack += attackBoost; // Increase hero's attack
@@ -136,9 +140,19 @@ class GameEngine {
           // Remove the strategy card from the player's hand
           this.playerHand.splice(cardIndex, 1);
           this.render();
+
+          // Update the strategy pool display
+          this.updateBoostPool(attackBoost, healthBoost);
       } else {
           this.logAction("This is not a valid strategy card or the strategy doesn't have an effect.");
       }
+  }
+
+  // Function to update the boost pool display
+  updateBoostPool(attackBoost, healthBoost) {
+      document.getElementById("strategy-pool").textContent = `Attack Boost: ${attackBoost + healthBoost}`;
+      document.getElementById("attack-pool").textContent = attackBoost;
+      document.getElementById("health-pool").textContent = healthBoost;
   }
 
   attackEnemy(heroIndex, enemyIndex) {
