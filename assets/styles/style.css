@@ -91,6 +91,32 @@ h1, h2 {
   align-items: center;
 }
 
+#player-zone {
+  position: relative;
+}
+
+#energy-cards {
+  display: flex;
+  position: relative;
+  width: 50px;  /* Width of energy card */
+  height: 70px; /* Height of energy card */
+  overflow: hidden;
+}
+
+.energy-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 50px;
+  height: 70px;
+}
+
+#energy-pool-display h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
 #hand-cards, #zone-cards, #enemy-cards {
   display: flex;
   flex-wrap: wrap;

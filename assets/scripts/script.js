@@ -265,7 +265,7 @@ class GameEngine {
           handDiv.appendChild(cardDiv);
       });
 
-      // Render player zone
+      // Render player zone (including energy cards)
       const zoneDiv = document.getElementById("zone-cards");
       zoneDiv.innerHTML = "";
       this.playerZone.forEach((card, index) => {
@@ -281,6 +281,25 @@ class GameEngine {
 
           zoneDiv.appendChild(cardDiv);
       });
+
+      // Render energy cards (showing multiple energy cards stacked together)
+      const energyZoneDiv = document.getElementById("player-zone");
+      const energyCardsDiv = document.createElement("div");
+      energyCardsDiv.className = "energy-cards-stack";
+      energyCardsDiv.style.position = "relative";
+      
+      for (let i = 0; i < this.energyPool; i++) {
+          const energyCardDiv = document.createElement("div");
+          energyCardDiv.className = "game-card energy-card";
+          energyCardDiv.style.backgroundImage = `url(/assets/images/energy/energy.png?version=1.0)`;
+          energyCardDiv.style.position = "absolute";
+          energyCardDiv.style.top = `${i * 10}px`;  // Stacked position
+          energyCardDiv.style.left = `${i * 5}px`; // Slight offset to simulate overlap
+
+          energyCardsDiv.appendChild(energyCardDiv);
+      }
+
+      energyZoneDiv.appendChild(energyCardsDiv);
 
       // Render enemy zone
       const enemyDiv = document.getElementById("enemy-cards");
@@ -301,8 +320,24 @@ class GameEngine {
           enemyDiv.appendChild(cardDiv);
       });
 
-      // Update energy pool display
+      // Update energy pool display (now showing stacked cards in player zone)
       document.getElementById("energy-pool").innerText = this.energyPool;
+  }
+
+  // Updated useEnergy method to add energy to the pool and update visuals
+  useEnergy(cardIndex) {
+      const card = this.playerHand[cardIndex];
+
+      if (card.type === "energy") {
+          this.energyPool += 1; // Increase energy pool
+          this.logAction(`Energy card used. Energy pool increased to ${this.energyPool}.`);
+
+          // Remove the energy card from the player's hand
+          this.playerHand.splice(cardIndex, 1);
+          this.render();
+      } else {
+          this.logAction("This is not an energy card!");
+      }
   }
 
 }
