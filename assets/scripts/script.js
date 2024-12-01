@@ -81,12 +81,15 @@ class GameEngine {
   }
 
   useEnergy(cardIndex) {
-    if (this.playerHand[cardIndex].type === "energy") {
-      this.energyPool += 1;
-      this.playerHand.splice(cardIndex, 1);
-      this.logAction("Energy used. Energy pool increased.");
-    }
-    this.render();
+      const card = this.playerHand[cardIndex];
+      if (card.type === "energy") {
+          this.energyPool += 1; // Increment energy pool
+          this.playerHand.splice(cardIndex, 1); // Remove the energy card from the hand
+          this.logAction("Energy card used. Energy pool increased by 1.");
+          this.render(); // Re-render the game to reflect changes
+      } else {
+          this.logAction("This card is not an energy card!");
+      }
   }
 
   attackEnemy(heroIndex, enemyIndex) {
@@ -138,44 +141,74 @@ class GameEngine {
   }
 
   render() {
-    // Render player hand
-    const handDiv = document.getElementById("hand-cards");
-    handDiv.innerHTML = "";
-    this.playerHand.forEach((card, index) => {
-      const cardDiv = document.createElement("div");
-      cardDiv.className = "card";
-      cardDiv.style.backgroundImage = `url(${card.image})`;
-      cardDiv.onclick = () => {
-        if (card.type === "hero") this.playHero(index);
-        else if (card.type === "energy") this.useEnergy(index);
-      };
-      handDiv.appendChild(cardDiv);
-    });
+      // Render player hand
+      const handDiv = document.getElementById("hand-cards");
+      handDiv.innerHTML = "";
+      this.playerHand.forEach((card, index) => {
+          const cardDiv = document.createElement("div");
+          cardDiv.className = "card";
+          cardDiv.style.backgroundImage = `url(${card.image})`;
 
-    // Render player zone
-    const zoneDiv = document.getElementById("zone-cards");
-    zoneDiv.innerHTML = "";
-    this.playerZone.forEach((card, index) => {
-      const cardDiv = document.createElement("div");
-      cardDiv.className = "card";
-      cardDiv.style.backgroundImage = `url(${card.image})`;
-      zoneDiv.appendChild(cardDiv);
-    });
+          // Card details overlay
+          const detailsDiv = document.createElement("div");
+          detailsDiv.className = "card-details";
+          detailsDiv.innerText = `${card.name || "Card"}\nAttack: ${card.attack || 0}\nHealth: ${card.health || 0}`;
+          cardDiv.appendChild(detailsDiv);
 
-    // Render enemy zone
-    const enemyDiv = document.getElementById("enemy-cards");
-    enemyDiv.innerHTML = "";
-    this.enemyZone.forEach((card, index) => {
-      const cardDiv = document.createElement("div");
-      cardDiv.className = "card";
-      cardDiv.style.backgroundImage = `url(${card.image})`;
-      cardDiv.onclick = () => this.attackEnemy(0, index); // Temporary logic for attacking with the first hero
-      enemyDiv.appendChild(cardDiv);
-    });
+          // Attach appropriate onclick handler
+          cardDiv.onclick = () => {
+              if (card.type === "hero") {
+                  this.playHero(index);
+              } else if (card.type === "energy") {
+                  this.useEnergy(index);
+              } else if (card.type === "strategy") {
+                  this.logAction("Strategy cards not implemented yet."); // Placeholder
+              }
+          };
 
-    // Update energy pool
-    document.getElementById("energy-pool").innerText = this.energyPool;
+          handDiv.appendChild(cardDiv);
+      });
+
+      // Render player zone
+      const zoneDiv = document.getElementById("zone-cards");
+      zoneDiv.innerHTML = "";
+      this.playerZone.forEach((card, index) => {
+          const cardDiv = document.createElement("div");
+          cardDiv.className = "card";
+          cardDiv.style.backgroundImage = `url(${card.image})`;
+
+          // Card details overlay
+          const detailsDiv = document.createElement("div");
+          detailsDiv.className = "card-details";
+          detailsDiv.innerText = `${card.name || "Card"}\nAttack: ${card.attack || 0}\nHealth: ${card.health || 0}`;
+          cardDiv.appendChild(detailsDiv);
+
+          zoneDiv.appendChild(cardDiv);
+      });
+
+      // Render enemy zone
+      const enemyDiv = document.getElementById("enemy-cards");
+      enemyDiv.innerHTML = "";
+      this.enemyZone.forEach((card, index) => {
+          const cardDiv = document.createElement("div");
+          cardDiv.className = "card";
+          cardDiv.style.backgroundImage = `url(${card.image})`;
+
+          // Card details overlay
+          const detailsDiv = document.createElement("div");
+          detailsDiv.className = "card-details";
+          detailsDiv.innerText = `${card.name || "Enemy"}\nAttack: ${card.attack || 0}\nHealth: ${card.health || 0}`;
+          cardDiv.appendChild(detailsDiv);
+
+          // Enemy attack interaction
+          cardDiv.onclick = () => this.attackEnemy(0, index); // Temporary logic for attacking with the first hero
+          enemyDiv.appendChild(cardDiv);
+      });
+
+      // Update energy pool display
+      document.getElementById("energy-pool").innerText = this.energyPool;
   }
+
 }
 
 // Initialize game
