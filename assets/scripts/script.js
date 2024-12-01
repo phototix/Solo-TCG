@@ -38,22 +38,27 @@ class GameEngine {
   }
 
   buildDeck() {
-    // Player deck
-    for (let i = 1; i <= 16; i++) {
-      this.playerDeck.push(new Card(`Hero-${i}`, "hero", `/assets/images/heroes/heroes-${i}.png?version=1.0`, 5000 - i * 500, 7 - Math.floor(i / 3)));
-    }
-    for (let i = 1; i <= 8; i++) {
-      this.playerDeck.push(new Card(`Strategy-${i}`, "strategy", `/assets/images/strategy/strategy-${i}.png?version=1.0`, 1, 2, { type: "health", value: 1 }));
-    }
-    for (let i = 0; i < 16; i++) {
-      this.playerDeck.push(new Card("Energy", "energy", `/assets/images/energy/energy.png?version=1.0`));
-    }
+      // Player deck
+      for (let i = 1; i <= 16; i++) {
+          const attackValue = 5000 - i * 500;
+          if (attackValue > 0) {  // Ensure hero attack is greater than 0
+              this.playerDeck.push(new Card(`Hero-${i}`, "hero", `/assets/images/heroes/heroes-${i}.png?version=1.0`, attackValue, 7 - Math.floor(i / 3)));
+          }
+      }
+      
+      for (let i = 1; i <= 8; i++) {
+          this.playerDeck.push(new Card(`Strategy-${i}`, "strategy", `/assets/images/strategy/strategy-${i}.png?version=1.0`, 1, 2, { type: "health", value: 1 }));
+      }
 
-    // Enemy deck
-    for (let i = 1; i <= 18; i++) {
-      const effect = i % 3 === 0 ? { type: "burn", cooldown: 2 } : null;
-      this.enemyDeck.push(new Card(`Enemy-${i}`, "enemy", `/assets/images/enemy/enemy-${i}.png?version=1.0`, 3000 + i * 200, 4 + Math.floor(i / 3), effect));
-    }
+      for (let i = 0; i < 16; i++) {
+          this.playerDeck.push(new Card("Energy", "energy", `/assets/images/energy/energy.png?version=1.0`));
+      }
+
+      // Enemy deck
+      for (let i = 1; i <= 18; i++) {
+          const effect = i % 3 === 0 ? { type: "burn", cooldown: 2 } : null;
+          this.enemyDeck.push(new Card(`Enemy-${i}`, "enemy", `/assets/images/enemy/enemy-${i}.png?version=1.0`, 3000 + i * 200, 4 + Math.floor(i / 3), effect));
+      }
   }
 
   shuffleDeck(deck) {
