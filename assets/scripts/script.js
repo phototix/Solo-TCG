@@ -178,8 +178,20 @@ class GameEngine {
   }
 
   restartGame() {
-      this.initializeGame(); // Reset game state
-      this.render();         // Re-render the game
+      // Clear all existing cards and zones
+      this.playerDeck = [];
+      this.enemyDeck = [];
+      this.playerHand = [];
+      this.playerZone = [];
+      this.enemyZone = [];
+      this.energyPool = 0;
+      this.turnCounter = 0;
+
+      // Reset the log
+      this.log.innerText = "Game restarted.";
+
+      // Reinitialize the game
+      this.initializeGame();
   }
 
   render() {
