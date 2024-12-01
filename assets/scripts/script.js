@@ -43,7 +43,7 @@ class GameEngine {
       this.playerDeck.push(new Card(`Hero-${i}`, "hero", `/assets/images/heroes/heroes-${i}.png?version=1.0`, 5000 - i * 500, 7 - Math.floor(i / 3)));
     }
     for (let i = 1; i <= 8; i++) {
-      this.playerDeck.push(new Card(`Strategy-${i}`, "strategy", `/assets/images/strategy/strategy-${i}.png?version=1.0`, 1, 2, { type: "heal", value: 1 }));
+      this.playerDeck.push(new Card(`Strategy-${i}`, "strategy", `/assets/images/strategy/strategy-${i}.png?version=1.0`, 1, 2, { type: "health", value: 1 }));
     }
     for (let i = 0; i < 16; i++) {
       this.playerDeck.push(new Card("Energy", "energy", `/assets/images/energy/energy.png?version=1.0`));
@@ -92,6 +92,27 @@ class GameEngine {
           this.render();
       } else {
           this.logAction("This is not an energy card!");
+      }
+  }
+
+  useStrategy(cardIndex) {
+      const card = this.playerHand[cardIndex];
+
+      if (card.type === "strategy" && card.effect && card.effect.type === "health") {
+          // Apply health boost to all heroes in player zone
+          const healthBoost = card.effect.value;
+
+          this.playerZone.forEach(hero => {
+              hero.health += healthBoost;
+          });
+
+          this.logAction(`All heroes' health increased by ${healthBoost}.`);
+
+          // Remove the strategy card from the player's hand
+          this.playerHand.splice(cardIndex, 1);
+          this.render();
+      } else {
+          this.logAction("This is not a valid strategy card or the strategy doesn't have a health effect.");
       }
   }
 
@@ -207,11 +228,11 @@ class GameEngine {
           const detailsDiv = document.createElement("div");
           detailsDiv.className = "card-details";
           if (card.type === "hero") {
-            detailsDiv.innerText = `${card.name || "Card"}\nAttack: ${card.attack || 0}\nHealth: ${card.health || 0}`;
+              detailsDiv.innerText = `${card.name || "Card"}\nAttack: ${card.attack || 0}\nHealth: ${card.health || 0}`;
           } else if (card.type === "energy") {
-            detailsDiv.innerText = `${card.name || "Card"}`;
+              detailsDiv.innerText = `${card.name || "Card"}`;
           } else if (card.type === "strategy") {
-            detailsDiv.innerText = `${card.name || "Card"}\nHealth: ${card.health || 0}`;
+              detailsDiv.innerText = `${card.name || "Card"}\nEffect: Health +${card.effect.value}`;
           }
           cardDiv.appendChild(detailsDiv);
 
@@ -222,7 +243,7 @@ class GameEngine {
               } else if (card.type === "energy") {
                   this.useEnergy(index);
               } else if (card.type === "strategy") {
-                  this.logAction("Strategy cards not implemented yet."); // Placeholder
+                  this.useStrategy(index);  // Call the useStrategy method for strategy cards
               }
           };
 
