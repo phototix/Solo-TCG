@@ -224,7 +224,7 @@ class GameEngine {
           this.endGame("You lost! No more heroes in your deck by turn 15.");
       }
 
-      nextTurn();
+      this.nextTurn();
       this.render(); // Re-render the game state
   }
 
