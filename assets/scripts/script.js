@@ -40,19 +40,19 @@ class GameEngine {
   buildDeck() {
     // Player deck
     for (let i = 1; i <= 16; i++) {
-      this.playerDeck.push(new Card(`Hero-${i}`, "hero", `heroes-${i}.png`, 5000 - i * 500, 7 - Math.floor(i / 3)));
+      this.playerDeck.push(new Card(`Hero-${i}`, "hero", `/assets/images/heroes/heroes-${i}.png`, 5000 - i * 500, 7 - Math.floor(i / 3)));
     }
     for (let i = 1; i <= 8; i++) {
-      this.playerDeck.push(new Card(`Strategy-${i}`, "strategy", `strategy-${i}.png`, 0, 0, { type: "heal", value: 1 }));
+      this.playerDeck.push(new Card(`Strategy-${i}`, "strategy", `/assets/images/strategy/strategy-${i}.png`, 0, 0, { type: "heal", value: 1 }));
     }
     for (let i = 0; i < 16; i++) {
-      this.playerDeck.push(new Card("Energy", "energy", `energy.png`));
+      this.playerDeck.push(new Card("Energy", "energy", `/assets/images/energy/energy.png`));
     }
 
     // Enemy deck
     for (let i = 1; i <= 18; i++) {
       const effect = i % 3 === 0 ? { type: "burn", cooldown: 2 } : null;
-      this.enemyDeck.push(new Card(`Enemy-${i}`, "enemy", `enemy-${i}.png`, 3000 + i * 200, 4 + Math.floor(i / 3), effect));
+      this.enemyDeck.push(new Card(`Enemy-${i}`, "enemy", `/assets/images/enemy/enemy-${i}.png`, 3000 + i * 200, 4 + Math.floor(i / 3), effect));
     }
   }
 
