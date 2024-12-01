@@ -175,22 +175,26 @@ class GameEngine {
           return;
       }
 
-      console.log(hero.attack + "& "+ enemy.attack);
+      // Apply the boost status to hero and enemy attacks
+      const effectiveHeroAttack = hero.attack + (this.attackBoost || 0);  // Add attack boost
+      const effectiveEnemyAttack = enemy.attack;  // You can add enemy specific boosts here if needed
+
+      console.log(`Hero attack: ${effectiveHeroAttack}, Enemy attack: ${effectiveEnemyAttack}`);
 
       // Compare attack values
-      if (hero.attack < enemy.attack) {
+      if (effectiveHeroAttack < effectiveEnemyAttack) {
           // Hero's attack is lower than the enemy's attack: Hero loses health
-          hero.health -= enemy.attack;
-          this.logAction(`${hero.name} attacked ${enemy.name}, but hero's attack is lower. Hero health reduced by ${enemy.attack}.`);
-      } else if (hero.attack > enemy.attack) {
+          hero.health -= effectiveEnemyAttack;
+          this.logAction(`${hero.name} attacked ${enemy.name}, but hero's attack is lower. Hero health reduced by ${effectiveEnemyAttack}.`);
+      } else if (effectiveHeroAttack > effectiveEnemyAttack) {
           // Hero's attack is higher than the enemy's attack: Enemy loses health
-          enemy.health -= hero.attack;
-          this.logAction(`${hero.name} attacked ${enemy.name}, and hero's attack is higher. Enemy health reduced by ${hero.attack}.`);
+          enemy.health -= effectiveHeroAttack;
+          this.logAction(`${hero.name} attacked ${enemy.name}, and hero's attack is higher. Enemy health reduced by ${effectiveHeroAttack}.`);
       } else {
           // Both have the same attack: Both lose health
-          hero.health -= hero.attack;
-          enemy.health -= enemy.attack;
-          this.logAction(`${hero.name} and ${enemy.name} have the same attack. Both hero and enemy's health reduced by ${hero.attack}.`);
+          hero.health -= effectiveHeroAttack;
+          enemy.health -= effectiveEnemyAttack;
+          this.logAction(`${hero.name} and ${enemy.name} have the same attack. Both hero and enemy's health reduced by ${effectiveHeroAttack}.`);
       }
 
       // Decrease energy after the attack
