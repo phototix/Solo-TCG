@@ -82,33 +82,59 @@ class GameEngine {
 
   useEnergy(cardIndex) {
       const card = this.playerHand[cardIndex];
+
       if (card.type === "energy") {
-          this.energyPool += 1; // Increment energy pool
-          this.playerHand.splice(cardIndex, 1); // Remove the energy card from the hand
-          this.logAction("Energy card used. Energy pool increased by 1.");
-          this.render(); // Re-render the game to reflect changes
+          if (this.playerZone.length === 0) {
+              this.logAction("No heroes available to apply energy.");
+              return;
+          }
+
+          // Apply the energy card to the first hero (can be extended to allow selection)
+          const hero = this.playerZone[0];
+          hero.health += 1; // Add 1 health to the hero
+          this.logAction(`Energy applied to ${hero.name}. Hero health increased to ${hero.health}.`);
+
+          // Remove the energy card from the player's hand
+          this.playerHand.splice(cardIndex, 1);
+          this.render();
       } else {
-          this.logAction("This card is not an energy card!");
+          this.logAction("This is not an energy card!");
       }
   }
 
   attackEnemy(heroIndex, enemyIndex) {
-    const hero = this.playerZone[heroIndex];
-    const enemy = this.enemyZone[enemyIndex];
+      const hero = this.playerZone[heroIndex];
+      const enemy = this.enemyZone[enemyIndex];
 
-    if (this.energyPool > 0) {
-      this.energyPool -= 1;
+      if (!hero) {
+          this.logAction("No hero to attack with.");
+          return;
+      }
+
+      if (!enemy) {
+          this.logAction("No enemy to attack.");
+          return;
+      }
+
+      // Deduct attack from enemy health
       enemy.health -= hero.attack;
 
-      this.logAction(`${hero.name} attacked ${enemy.name} for ${hero.attack} damage.`);
-      if (enemy.health <= 0) {
-        this.enemyZone.splice(enemyIndex, 1);
-        this.logAction(`${enemy.name} defeated!`);
+      // If the enemy survives, deduct 1 health from the hero
+      if (enemy.health > 0) {
+          hero.health -= 1;
+          this.logAction(`Hero attacked ${enemy.name}. Enemy health reduced to ${enemy.health}, but hero health reduced by 1.`);
+      } else {
+          this.logAction(`Hero defeated ${enemy.name}!`);
+          this.enemyZone.splice(enemyIndex, 1); // Remove defeated enemy
       }
-    } else {
-      this.logAction("Not enough energy to attack!");
-    }
-    this.render();
+
+      // Check if hero survives
+      if (hero.health <= 0) {
+          this.logAction(`Hero ${hero.name} was knocked out.`);
+          this.playerZone.splice(heroIndex, 1); // Remove defeated hero
+      }
+
+      this.render(); // Re-render the game state
   }
 
   nextTurn() {
