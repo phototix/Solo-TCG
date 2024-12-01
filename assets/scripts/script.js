@@ -33,9 +33,9 @@ class GameEngine {
     document.getElementById("attack-pool").textContent = 0;
     document.getElementById("health-pool").textContent = 0;
 
-    for (let i = 0; i < 5; i++) this.drawCard();
+    for (let i = 0; i < 3; i++) this.drawCard();
 
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 3; i++) {
       this.enemyZone.push(this.enemyDeck.pop());
     }
 
@@ -236,7 +236,7 @@ class GameEngine {
 
   nextTurn() {
       // Check if the player has more than 10 cards in hand before proceeding
-      if (this.playerHand.length >= 10) {
+      if (this.playerHand.length >= 5) {
           this.logAction("You cannot proceed to the next turn with more than 10 cards in hand.");
           return; // Stop further execution if the player has 10 or more cards
       }
