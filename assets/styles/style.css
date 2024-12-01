@@ -98,8 +98,8 @@ h1, h2 {
 #energy-cards {
   display: flex;
   position: relative;
-  width: 50px;  /* Width of energy card */
-  height: 70px; /* Height of energy card */
+  width: 70px;  /* Width of energy card */
+  height: 100px; /* Height of energy card */
   overflow: hidden;
 }
 
