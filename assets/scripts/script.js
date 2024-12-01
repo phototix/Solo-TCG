@@ -19,6 +19,7 @@ class GameEngine {
     this.energyPool = 0;
     this.enemyZone = [];
     this.turnCounter = 0;
+    this.updateBoostPool(0, 0);
     this.log = document.getElementById("log");
   }
 
@@ -307,7 +308,7 @@ class GameEngine {
       this.turnCounter = 0;
 
       // Reset the boost status
-      updateBoostPool(0, 0);
+      this.updateBoostPool(0, 0);
 
       // Reset the log
       this.log.innerText = "Game restarted.";
