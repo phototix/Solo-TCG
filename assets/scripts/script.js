@@ -111,7 +111,7 @@ class GameEngine {
       const card = this.playerHand[cardIndex];
 
       if (card.type === "strategy" && card.effect) {
-          // Update the strategy pool display variables
+          // Initialize or get the existing boost values
           let healthBoost = 0;
           let attackBoost = 0;
 
@@ -119,7 +119,7 @@ class GameEngine {
               // Apply health boost to all heroes in player zone
               healthBoost = card.effect.value;
               this.playerZone.forEach(hero => {
-                  hero.health += healthBoost;
+                  hero.health += healthBoost;  // Apply health boost to heroes
               });
 
               this.logAction(`All heroes' health increased by ${healthBoost}.`);
@@ -128,7 +128,7 @@ class GameEngine {
               attackBoost = card.effect.value;
               this.playerDeck.forEach(hero => {
                   if (hero.type === "hero") {
-                      hero.attack += attackBoost; // Increase hero's attack
+                      hero.attack += attackBoost;  // Increase hero's attack
                   }
               });
 
@@ -142,24 +142,17 @@ class GameEngine {
           this.render();
 
           // Update the strategy pool display
-          this.updateBoostPool(attackBoost, healthBoost);
+          this.attackBoost = (this.attackBoost || 0) + attackBoost;  // Add to existing attack boost
+          this.healthBoost = (this.healthBoost || 0) + healthBoost;  // Add to existing health boost
+          this.updateBoostPool(this.attackBoost, this.healthBoost);
       } else {
           this.logAction("This is not a valid strategy card or the strategy doesn't have an effect.");
       }
   }
 
   updateBoostPool(attackBoost, healthBoost) {
-      // Get the current values from the pool display
-      let currentAttackBoost = parseInt(document.getElementById("attack-pool").textContent) || 0;
-      let currentHealthBoost = parseInt(document.getElementById("health-pool").textContent) || 0;
-
-      // Sum the existing and new boost values
-      currentAttackBoost += attackBoost;
-      currentHealthBoost += healthBoost;
-
-      // Update the boost pool display with the new summed values
-      document.getElementById("attack-pool").textContent = currentAttackBoost;
-      document.getElementById("health-pool").textContent = currentHealthBoost;
+      document.getElementById("attack-pool").textContent = attackBoost;
+      document.getElementById("health-pool").textContent = healthBoost;
   }
 
   attackEnemy(heroIndex, enemyIndex) {
@@ -252,7 +245,6 @@ class GameEngine {
   }
 
   endGame() {
-      // Show the Bootstrap modal
       const endGameModal = new bootstrap.Modal(document.getElementById('endGameModal'));
       endGameModal.show();
 
