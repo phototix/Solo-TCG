@@ -144,7 +144,6 @@ body {
 
 /* Each individual boost item */
 .boost-item {
-  display: flex;
   justify-content: space-between;
   align-items: center;
   margin-right: 15px;
