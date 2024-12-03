@@ -89,7 +89,6 @@ function selectLanguage(lang) {
 
 // Start Game function (for now, just console log)
 function startGame() {
-    alert("Game Started!");
     // Redirect to the game page (e.g., Chinese or English)
     window.location.href = selectedLanguage === 'zh' ? 'chinese.html' : 'english.html';
 }
