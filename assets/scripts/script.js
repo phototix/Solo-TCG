@@ -569,7 +569,7 @@ const systemTranslations = {
     zoneFull: "玩家区域已满！",
     energyUsed: "使用了能量卡。能量池增加到",
     notEnergyCard: "这不是能量卡！",
-    strategyHealthBoost: "所有英雄的健康增加了{value}点。",
+    strategyHealthBoost: "所有英雄的运气增加了{value}点。",
     strategyAttackBoost: "由于策略卡，所有英雄的攻击力增加了{value}点。",
     invalidStrategyEffect: "此策略卡没有有效效果。",
     invalidStrategyCard: "这不是有效的策略卡，或者策略没有效果。",
