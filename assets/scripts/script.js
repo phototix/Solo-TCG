@@ -479,7 +479,7 @@ class GameEngine {
 
     // Attack text
     const attackText = document.createElement("span");
-    attackText.innerText = `Effective Hero Attack: ${heroAttack.toFixed(0)}, Effective Enemy Attack: ${enemyAttack.toFixed(0)}`;
+    attackText.innerText = `${hero.name}: ${heroAttack.toFixed(0)} vs ${enemy.name}: ${enemyAttack.toFixed(0)}`;
     flyItem.appendChild(attackText);
 
     // Enemy avatar
