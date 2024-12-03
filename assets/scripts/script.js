@@ -125,7 +125,7 @@ class GameEngine {
               // Apply health boost to all heroes in player zone
               healthBoost = card.effect.value;
               this.playerZone.forEach(hero => {
-                  hero.health += healthBoost;  // Apply health boost to heroes
+                   // hero.health += healthBoost;  // Apply health boost to heroes
               });
 
               this.logAction(`All heroes' luck increased by ${healthBoost}.`);
@@ -134,7 +134,7 @@ class GameEngine {
               attackBoost = card.effect.value;
               this.playerZone.forEach(hero => {
                   if (hero.type === "hero") {
-                      hero.attack += attackBoost;  // Increase hero's attack
+                       // hero.attack += attackBoost;  // Increase hero's attack
                   }
               });
 
