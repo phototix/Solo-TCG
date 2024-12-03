@@ -502,7 +502,7 @@ class GameEngine {
   }
 
   // Translation function
-  function translateToChinese(text) {
+  translateToChinese(text) {
     const translations = {
       "Game started. Draw 2 cards.": "游戏开始，抽两张卡。",
       "Player zone is full!": "玩家区域已满！",
