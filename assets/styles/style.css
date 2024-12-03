@@ -87,7 +87,7 @@ body {
 #hand-cards .game-card {
   display: inline-block;
   width: 100px;
-  height: 150px;
+  height: 130px;
   margin: 10px;
   position: relative;
   background-size: cover;
@@ -108,7 +108,7 @@ body {
 #zone-cards .game-card {
   display: inline-block;
   width: 100px;
-  height: 150px;
+  height: 130px;
   margin: 10px;
   position: relative;
   background-size: cover;
