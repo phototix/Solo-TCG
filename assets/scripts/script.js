@@ -36,7 +36,7 @@ class GameEngine {
 
     for (let i = 0; i < 3; i++) this.drawCard();
 
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 3; i++) {
       this.enemyZone.push(this.enemyDeck.pop());
     }
 
@@ -96,7 +96,7 @@ class GameEngine {
   }
 
   playHero(cardIndex) {
-    if (this.playerZone.length < 3) {
+    if (this.playerZone.length < 2) {
       const hero = this.playerHand.splice(cardIndex, 1)[0];
       this.playerZone.push(hero);
       this.logAction(`${hero.name} ${systemTranslations[lang].deployedToZone}`);
