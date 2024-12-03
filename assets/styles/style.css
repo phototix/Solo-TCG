@@ -259,7 +259,7 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  animation: fly-across 6s ease-in-out; /* Total duration is 6 seconds, with 2 seconds for pause */
+  animation: fly-across 10s ease-in-out; /* Total duration is 10 seconds, with 2 seconds for pause */
   white-space: nowrap;
   font-size: 24px;
   font-weight: bold;
