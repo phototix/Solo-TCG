@@ -182,13 +182,13 @@ class GameEngine {
     }
 
     // Luck Factor Calculation
-    const heroLuckFactor = Math.random() * (hero.health * 100); // Luck factor based on hero health
+    const heroLuckFactor = Math.random() * (hero.health + healthBoost * 100); // Luck factor based on hero health
     const enemyLuckFactor = Math.random() * (enemy.health * 100); // Luck factor based on enemy health
     
     console.log(`Hero Luck: ${heroLuckFactor.toFixed(2)}, Enemy Luck: ${enemyLuckFactor.toFixed(2)}`);
 
     // Apply the boost status to hero and enemy attacks
-    const effectiveHeroAttack = hero.attack + heroLuckFactor;  // Luck added to hero's attack
+    const effectiveHeroAttack = hero.attack  + attackBoost + heroLuckFactor;  // Luck added to hero's attack
     const effectiveEnemyAttack = enemy.attack + enemyLuckFactor;  // Luck added to enemy's attack
 
     console.log(`Effective Hero Attack: ${effectiveHeroAttack.toFixed(2)}, Effective Enemy Attack: ${effectiveEnemyAttack.toFixed(2)}`);
