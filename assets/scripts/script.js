@@ -276,22 +276,22 @@ class GameEngine {
   nextTurn() {
       // Check if the player has more than 10 cards in hand before proceeding
       if (this.playerHand.length >= 3) {
-          this.logAction("You cannot proceed to the next turn with more than 3 cards in hand.");
+          this.logAction(systemTranslations[lang].tooManyCards);
           return; // Stop further execution if the player has 10 or more cards
       }
 
       this.turnCounter++;
-      this.logAction(`Turn ${this.turnCounter} started.`);
+      this.logAction(format(systemTranslations[lang].turnStarted, this.turnCounter));
 
       // Check if the game should end based on turn and player deck conditions
       if (this.turnCounter >= 15 && this.playerDeck.length === 0 && this.playerZone.length === 0) {
-          this.endGame("You lost! You ran out of heroes in your deck and zone.");
+          this.endGame(systemTranslations[lang].gameLostDeck);
           return; // Stop further execution if the game is over
       }
 
       // Check if the enemy is defeated (no enemies left in their zone)
       if (this.enemyZone.length === 0) {
-          this.endGame("You won! All enemy heroes have been defeated.");
+          this.endGame(systemTranslations[lang].gameWon);
           return; // Stop further execution if the game is won
       }
 
@@ -309,7 +309,7 @@ class GameEngine {
 
       // Check for game loss if player has no heroes left in the deck and zone
       if (this.turnCounter >= 15 && this.playerDeck.length === 0 && this.playerZone.length === 0) {
-          this.endGame("You lost! You have no heroes left in your deck and zone after turn 15.");
+          this.endGame(systemTranslations[lang].gameLostNoHeroes);
           return; // Stop the turn if the game ends
       }
 
@@ -378,16 +378,16 @@ class GameEngine {
           detailsDiv.className = "card-details";
 
           if (card.type === "hero") {
-              detailsDiv.innerText = `${card.name || "Card"}\nAttack: ${card.attack || 0}\nLuck: ${card.health || 0}`;
+              detailsDiv.innerText = `${card.name || systemTranslations[lang].card}\n${systemTranslations[lang].attack}: ${card.attack || 0}\n${systemTranslations[lang].luck}: ${card.health || 0}`;
           } else if (card.type === "energy") {
-              detailsDiv.innerText = `${card.name || "Card"}`;
+              detailsDiv.innerText = `${card.name || systemTranslations[lang].card}`;
           } else if (card.type === "strategy") {
               if (card.effect.type === "health") {
-                  detailsDiv.innerText = `${card.name || "Card"}\nEffect: Luck +${card.effect.value}`;
+                  detailsDiv.innerText = `${card.name || systemTranslations[lang].card}\n${systemTranslations[lang].effect}: ${systemTranslations[lang].healthEffect}${card.effect.value}`;
               } else if (card.effect.type === "boost") {
-                  detailsDiv.innerText = `${card.name || "Card"}\nEffect: Attack +${card.effect.value}`;
+                  detailsDiv.innerText = `${card.name || systemTranslations[lang].card}\n${systemTranslations[lang].effect}: ${systemTranslations[lang].boostEffect}${card.effect.value}`;
               } else {
-                  detailsDiv.innerText = `${card.name || "Card"}\nEffect: Unknown Effect`;
+                  detailsDiv.innerText = `${card.name || systemTranslations[lang].card}\n${systemTranslations[lang].effect}: ${systemTranslations[lang].unknownEffect}`;
               }
           }
 
@@ -461,7 +461,13 @@ class GameEngine {
           // Card details overlay
           const detailsDiv = document.createElement("div");
           detailsDiv.className = "card-details";
-          detailsDiv.innerText = `${card.name || "Enemy"}\nAttack: ${card.attack || 0}\nLuck: ${card.health || 0}`;
+
+          // Use translations for dynamic language support
+          const attackText = translations[lang]?.attack || "Attack";
+          const luckText = translations[lang]?.luck || "Luck";
+          const enemyName = card.name || translations[lang]?.enemy || "Enemy";
+
+          detailsDiv.innerText = `${enemyName}\n${attackText}: ${card.attack || 0}\n${luckText}: ${card.health || 0}`;
           cardDiv.appendChild(detailsDiv);
 
           // Enemy attack interaction
@@ -535,6 +541,18 @@ const systemTranslations = {
     heroDefeated: "{hero} was knocked out.",
     victory: "You won!",
     lossNoHeroes: "You lost! No more heroes in your deck by turn 15.",
+    tooManyCards: "You cannot proceed to the next turn with more than 3 cards in hand.",
+    turnStarted: "Turn {0} started.",
+    gameLostDeck: "You lost! You ran out of heroes in your deck and zone.",
+    gameWon: "You won! All enemy heroes have been defeated.",
+    gameLostNoHeroes: "You lost! You have no heroes left in your deck and zone after turn 15.",
+    card: "Card",
+    attack: "Attack",
+    luck: "Luck",
+    effect: "Effect",
+    healthEffect: "Luck +",
+    boostEffect: "Attack +",
+    unknownEffect: "Unknown Effect",
   },
   zh: {
     deployedToZone: "已部署到玩家区域。",
@@ -556,6 +574,18 @@ const systemTranslations = {
     heroDefeated: "{hero} 被击倒了。",
     victory: "你赢了！",
     lossNoHeroes: "你输了！在第 15 回合后卡组中没有英雄。",
+    tooManyCards: "您无法继续下一回合，因为手牌超过 3 张。",
+    turnStarted: "第 {0} 回合开始。",
+    gameLostDeck: "您输了！您的牌库和区域都没有英雄了。",
+    gameWon: "您赢了！所有敌方英雄都被击败。",
+    gameLostNoHeroes: "您输了！第 15 回合后，您的牌库和区域没有英雄了。",
+    card: "卡牌",
+    attack: "攻击",
+    luck: "运气",
+    effect: "效果",
+    healthEffect: "运气 +",
+    boostEffect: "攻击 +",
+    unknownEffect: "未知效果",
   },
 };
 
@@ -564,5 +594,9 @@ const userLanguage = new URL(document.currentScript.src).searchParams.get("lang"
 
 // Ensure language fallback
 const lang = systemTranslations[userLanguage] ? userLanguage : "en";
+
+function format(message, ...values) {
+  return message.replace(/{(\d+)}/g, (match, number) => (typeof values[number] !== "undefined" ? values[number] : match));
+}
 
 game.initializeGame();
