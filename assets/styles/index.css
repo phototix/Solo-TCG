@@ -1,0 +1,84 @@
+/* Basic styles for the game start page */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.game-start-container {
+    text-align: center;
+}
+
+.carousel-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.carousel {
+    display: flex;
+    overflow: hidden;
+    width: 300px;
+    height: 400px;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.hero-card {
+    flex: 0 0 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: #444;
+    border-radius: 10px;
+    margin: 0 10px;
+    color: #fff;
+    font-size: 24px;
+    text-align: center;
+    transition: transform 0.5s ease-in-out;
+}
+
+.hero-card img {
+    max-width: 100%;
+    max-height: 80%;
+    border-radius: 10px;
+}
+
+.language-selection {
+    margin: 20px 0;
+}
+
+.language-selection button {
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.language-selection button:hover {
+    background-color: #0055bb;
+}
+
+#startGameBtn {
+    background-color: #ff6600;
+    color: white;
+    font-size: 20px;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#startGameBtn:hover {
+    background-color: #e65c00;
+}
