@@ -11,8 +11,8 @@ body {
   min-height: 100vh;
 }
 
-/* Reset Bootstrap interference */
 #game-container {
+  background: url('/assets/images/background-001.jpg') no-repeat center center;
   margin: 20px auto;
   max-width: 1200px;
   width: 100%;
