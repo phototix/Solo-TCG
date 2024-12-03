@@ -183,7 +183,7 @@ class GameEngine {
       }
 
       // Apply the boost status to hero and enemy attacks
-      const effectiveHeroAttack = hero.attack + (this.attackBoost || 0);  // Add attack boost
+      const effectiveHeroAttack = hero.attack;  //  + (this.attackBoost || 0);  // Add attack boost
       const effectiveEnemyAttack = enemy.attack;  // You can add enemy specific boosts here if needed
 
       console.log(`Hero attack: ${effectiveHeroAttack}, Enemy attack: ${effectiveEnemyAttack}`);
