@@ -46,33 +46,50 @@ class GameEngine {
 
   buildDeck() {
       // Player deck
-      for (let i = 1; i <= 16; i++) {
-          const attackValue = 5000 - i * 500;
+      const heroes = [
+          "曹震", "孙策", "关羽", "张飞", "刘备", "黄忠", "诸葛亮", "貂蝉", 
+          "吕布", "司马懿", "赵云", "周瑜", "孙尚香", "典韦", "黄承", "甘宁"
+      ];
+
+      for (let i = 0; i < 16; i++) {
+          const attackValue = 5000 - (i + 1) * 500;
           if (attackValue > 0) {  // Ensure hero attack is greater than 0
-              this.playerDeck.push(new Card(`Hero-${i}`, "hero", `/assets/images/heroes/heroes-${i}.png?version=1.0`, attackValue, 7 - Math.floor(i / 3)));
+              this.playerDeck.push(new Card(heroes[i], "hero", `/assets/images/heroes/heroes-${i+1}.png?version=1.0`, attackValue, 7 - Math.floor((i + 1) / 3)));
           }
       }
 
-      for (let i = 1; i <= 8; i++) {
-          this.playerDeck.push(new Card(`Strategy-${i}`, "strategy", `/assets/images/strategy/strategy-${i}.png?version=1.0`, 1, 2, { type: "health", value: 1 }));
+      const strategies = [
+          "破阵图", "计中计", "埋伏之策", "积极防守", "奇兵突袭", "反间计", "火攻计", 
+          "水淹之策", "联盟图谋", "谍报来临", "士气高扬", "解围计", "突破重围", 
+          "诈降之计", "空城计", "诱敌深入"
+      ];
+
+      for (let i = 0; i < 8; i++) {
+          this.playerDeck.push(new Card(strategies[i], "strategy", `/assets/images/strategy/strategy-${i+1}.png?version=1.0`, 1, 2, { type: "health", value: 1 }));
       }
 
       // Add Boost strategy cards
-      for (let i = 9; i <= 10; i++) {
-          this.playerDeck.push(new Card(`Boost-${i}`, "strategy", `/assets/images/strategy/strategy-${i}.png?version=1.0`, 1, 2, { type: "boost", value: 1000 }));
+      for (let i = 8; i <= 9; i++) {
+          this.playerDeck.push(new Card(strategies[i], "strategy", `/assets/images/strategy/strategy-${i+1}.png?version=1.0`, 1, 2, { type: "boost", value: 1000 }));
       }
 
       // Add Energy cards
       for (let i = 0; i < 16; i++) {
-          this.playerDeck.push(new Card("Energy", "energy", `/assets/images/energy/energy.png?version=1.0`));
+          this.playerDeck.push(new Card("元气", "energy", `/assets/images/energy/energy.png?version=1.0`));
       }
 
       // Enemy deck
-      for (let i = 1; i <= 18; i++) {
+      const enemies = [
+          "曹操", "颜良", "张辽", "许褚", "王异", "袁绍", "董卓", "郭汜", "邓艾", 
+          "何进", "夏侯惇", "陶谦", "高顺", "孙权", "华雄", "曹洪", "杨弘", "袁术"
+      ];
+
+      for (let i = 0; i < 18; i++) {
           const effect = i % 3 === 0 ? { type: "burn", cooldown: 2 } : null;
-          this.enemyDeck.push(new Card(`Enemy-${i}`, "enemy", `/assets/images/enemy/enemy-${i}.png?version=1.0`, 3000 + i * 200, 4 + Math.floor(i / 3), effect));
+          this.enemyDeck.push(new Card(enemies[i], "enemy", `/assets/images/enemy/enemy-${i+1}.png?version=1.0`, 3000 + (i + 1) * 200, 4 + Math.floor((i + 1) / 3), effect));
       }
   }
+
 
   shuffleDeck(deck) {
     for (let i = deck.length - 1; i > 0; i--) {
