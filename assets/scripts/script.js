@@ -12,7 +12,7 @@ class Card {
 
 class GameEngine {
 
-  const translations = {
+  const systemTranslations = {
     en: {
       deployedToZone: "deployed to player zone.",
       zoneFull: "Player zone is full!",
@@ -27,7 +27,7 @@ class GameEngine {
   const userLanguage = new URL(document.currentScript.src).searchParams.get("lang") || "en";
 
   // Ensure language fallback
-  const lang = translations[userLanguage] ? userLanguage : "en";
+  const lang = systemTranslations[userLanguage] ? userLanguage : "en";
 
   constructor() {
     this.playerDeck = [];
