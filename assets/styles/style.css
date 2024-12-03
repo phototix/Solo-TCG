@@ -142,6 +142,13 @@ body {
   font-weight: bold;
 }
 
+.outlined-text {
+    font-weight: bold;
+    color: black; /* Set the text color to black */
+    -webkit-text-stroke: 1px white; /* For webkit-based browsers (Chrome, Safari) */
+    text-stroke: 1px white; /* For other browsers */
+}
+
 /* Each individual boost item */
 .boost-item {
   width: 100px;
