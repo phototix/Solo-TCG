@@ -42,15 +42,12 @@ class GameEngine {
 
     this.render();
     document.getElementById("next-turn").addEventListener("click", () => this.nextTurn());
-    this.logAction("Game started. Draw 2 cards.");
+    this.logAction(translations[lang].gameStarted);
   }
 
   buildDeck() {
       // Player deck
-      const heroes = [
-          "曹震", "孙策", "关羽", "张飞", "刘备", "黄忠", "诸葛亮", "貂蝉", 
-          "吕布", "司马懿", "赵云", "周瑜", "孙尚香", "典韦", "黄承", "甘宁"
-      ];
+      const heroes = translations[lang].heroes;
 
       for (let i = 0; i < 16; i++) {
           const attackValue = 5000 - (i + 1) * 500;
@@ -59,11 +56,7 @@ class GameEngine {
           }
       }
 
-      const strategies = [
-          "破阵图", "计中计", "埋伏之策", "积极防守", "奇兵突袭", "反间计", "火攻计", 
-          "水淹之策", "联盟图谋", "谍报来临", "士气高扬", "解围计", "突破重围", 
-          "诈降之计", "空城计", "诱敌深入"
-      ];
+      const strategies = translations[lang].strategies;
 
       for (let i = 0; i < 8; i++) {
           this.playerDeck.push(new Card(strategies[i], "strategy", `/assets/images/strategy/strategy-${i+1}.png?version=1.0`, 1, 2, { type: "health", value: 1 }));
@@ -76,14 +69,11 @@ class GameEngine {
 
       // Add Energy cards
       for (let i = 0; i < 16; i++) {
-          this.playerDeck.push(new Card("元气", "energy", `/assets/images/energy/energy.png?version=1.0`));
+          this.playerDeck.push(new Card(systemTranslations[lang].energyCard, "energy", `/assets/images/energy/energy.png?version=1.0`));
       }
 
       // Enemy deck
-      const enemies = [
-          "曹操", "颜良", "张辽", "许褚", "王异", "袁绍", "董卓", "郭汜", "邓艾", 
-          "何进", "夏侯惇", "陶谦", "高顺", "孙权", "华雄", "曹洪", "杨弘", "袁术"
-      ];
+      const enemies = translations[lang].enemies;
 
       for (let i = 0; i < 18; i++) {
           const effect = i % 3 === 0 ? { type: "burn", cooldown: 2 } : null;
@@ -553,6 +543,21 @@ const systemTranslations = {
     healthEffect: "Luck +",
     boostEffect: "Attack +",
     unknownEffect: "Unknown Effect",
+    gameStarted: "Game started. Draw 2 cards.",
+    energyCard: "Energy",
+    heroes: [
+      "Cao Zhen", "Sun Ce", "Guan Yu", "Zhang Fei", "Liu Bei", "Huang Zhong", "Zhuge Liang", "Diao Chan", 
+      "Lu Bu", "Sima Yi", "Zhao Yun", "Zhou Yu", "Sun Shangxiang", "Dian Wei", "Huang Cheng", "Gan Ning"
+    ],
+    strategies: [
+      "Breaking the Formation", "Counter-Strategy", "Ambush Strategy", "Active Defense", "Surprise Attack", 
+      "Counter-Scheme", "Fire Attack", "Flood Strategy", "Alliance Plot", "Spy Report", "Morale High", 
+      "Break the Siege", "Surrender Strategy", "Empty City Tactic", "Luring the Enemy In"
+    ],
+    enemies: [
+      "Cao Cao", "Yan Liang", "Zhang Liao", "Xu Chu", "Wang Yi", "Yuan Shao", "Dong Zhuo", "Guo Si", "Deng Ai", 
+      "He Jin", "Xiahou Dun", "Tao Qian", "Gao Shun", "Sun Quan", "Hua Xiong", "Cao Hong", "Yang Hong", "Yuan Shu"
+    ],
   },
   zh: {
     deployedToZone: "已部署到玩家区域。",
@@ -586,6 +591,21 @@ const systemTranslations = {
     healthEffect: "运气 +",
     boostEffect: "攻击 +",
     unknownEffect: "未知效果",
+    gameStarted: "游戏开始。抽取 2 张卡片。",
+    energyCard: "元气",
+    heroes: [
+      "曹震", "孙策", "关羽", "张飞", "刘备", "黄忠", "诸葛亮", "貂蝉", 
+      "吕布", "司马懿", "赵云", "周瑜", "孙尚香", "典韦", "黄承", "甘宁"
+    ],
+    strategies: [
+      "破阵图", "计中计", "埋伏之策", "积极防守", "奇兵突袭", "反间计", "火攻计", 
+      "水淹之策", "联盟图谋", "谍报来临", "士气高扬", "解围计", "突破重围", 
+      "诈降之计", "空城计", "诱敌深入"
+    ],
+    enemies: [
+      "曹操", "颜良", "张辽", "许褚", "王异", "袁绍", "董卓", "郭汜", "邓艾", 
+      "何进", "夏侯惇", "陶谦", "高顺", "孙权", "华雄", "曹洪", "杨弘", "袁术"
+    ],
   },
 };
 
