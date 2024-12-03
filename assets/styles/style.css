@@ -116,6 +116,15 @@ body {
   position: relative;
 }
 
+#status {
+  background-color: #2d2d2d;
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+  width: 100%;
+}
+
 /* Boost pool display style */
 .boost-pool {
   background-color: #2d2d2d;
