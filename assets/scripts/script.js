@@ -122,13 +122,13 @@ class GameEngine {
 
       if (card.type === "energy") {
           this.energyPool += 1; // Increase energy pool
-          this.logAction(`Energy card used. Energy pool increased to ${this.energyPool}.`);
+          this.logAction(`${systemTranslations[lang].energyUsed} ${this.energyPool}.`);
 
           // Remove the energy card from the player's hand
           this.playerHand.splice(cardIndex, 1);
           this.render();
       } else {
-          this.logAction("This is not an energy card!");
+          this.logAction(systemTranslations[lang].notEnergyCard);
       }
   }
 
@@ -147,7 +147,7 @@ class GameEngine {
                    // hero.health += healthBoost;  // Apply health boost to heroes
               });
 
-              this.logAction(`All heroes' luck increased by ${healthBoost}.`);
+              this.logAction(systemTranslations[lang].strategyHealthBoost.replace("{value}", healthBoost));
           } else if (card.effect.type === "boost") {
               // Apply attack boost to all heroes in player deck
               attackBoost = card.effect.value;
@@ -157,9 +157,9 @@ class GameEngine {
                   }
               });
 
-              this.logAction(`All heroes' attack increased by ${attackBoost} due to Boost card.`);
+              this.logAction(systemTranslations[lang].strategyAttackBoost.replace("{value}", attackBoost));
           } else {
-              this.logAction("This strategy card doesn't have a valid effect.");
+              this.logAction(systemTranslations[lang].invalidStrategyEffect);
           }
 
           // Remove the strategy card from the player's hand
@@ -171,7 +171,7 @@ class GameEngine {
           this.healthBoost = (this.healthBoost || 0) + healthBoost;  // Add to existing health boost
           this.updateBoostPool(this.attackBoost, this.healthBoost);
       } else {
-          this.logAction("This is not a valid strategy card or the strategy doesn't have an effect.");
+          this.logAction(systemTranslations[lang].invalidStrategyCard);
       }
   }
 
@@ -185,18 +185,18 @@ class GameEngine {
     const enemy = this.enemyZone[enemyIndex];
 
     if (!hero) {
-      this.logAction("No hero to attack with.");
+      this.logAction(systemTranslations[lang].noHeroToAttack);
       return;
     }
 
     if (!enemy) {
-      this.logAction("No enemy to attack.");
+      this.logAction(systemTranslations[lang].noEnemyToAttack);
       return;
     }
 
     // Check if there is enough energy to attack
     if (this.energyPool < 1) {
-      this.logAction("Not enough energy to attack!");
+      this.logAction(systemTranslations[lang].notEnoughEnergy);
       return;
     }
 
@@ -211,25 +211,33 @@ class GameEngine {
     const effectiveEnemyAttack = enemy.attack + enemyLuckFactor;  // Luck added to enemy's attack
 
     console.log(`Effective Hero Attack: ${effectiveHeroAttack.toFixed(2)}, Effective Enemy Attack: ${effectiveEnemyAttack.toFixed(2)}`);
-    this.logAction(`Effective Hero Attack: ${effectiveHeroAttack.toFixed(2)}, Effective Enemy Attack: ${effectiveEnemyAttack.toFixed(2)}`);
 
-    // Compare attack values and use luck to determine who wins
+    // Compare attacks and apply results
     if (effectiveHeroAttack < effectiveEnemyAttack) {
-      // Hero's attack is lower than the enemy's attack: Hero loses health
       hero.health -= effectiveEnemyAttack;
-      this.logAction(`${hero.name} attacked ${enemy.name}, but hero's attack is lower. Hero health reduced by ${effectiveEnemyAttack.toFixed(2)}.`);
-      this.showFlyScreenEffect(hero, enemy, effectiveHeroAttack, effectiveEnemyAttack);
+      this.logAction(
+        systemTranslations[lang].heroLoses
+          .replace("{hero}", hero.name)
+          .replace("{enemy}", enemy.name)
+          .replace("{damage}", effectiveEnemyAttack.toFixed(2))
+      );
     } else if (effectiveHeroAttack > effectiveEnemyAttack) {
-      // Hero's attack is higher than the enemy's attack: Enemy loses health
       enemy.health -= effectiveHeroAttack;
-      this.logAction(`${hero.name} attacked ${enemy.name}, and hero's attack is higher. Enemy health reduced by ${effectiveHeroAttack.toFixed(2)}.`);
-      this.showFlyScreenEffect(hero, enemy, effectiveHeroAttack, effectiveEnemyAttack);
+      this.logAction(
+        systemTranslations[lang].heroWins
+          .replace("{hero}", hero.name)
+          .replace("{enemy}", enemy.name)
+          .replace("{damage}", effectiveHeroAttack.toFixed(2))
+      );
     } else {
-      // Both have the same attack: Both lose health
       hero.health -= effectiveHeroAttack;
       enemy.health -= effectiveEnemyAttack;
-      this.logAction(`${hero.name} and ${enemy.name} have the same attack. Both hero and enemy's health reduced by ${effectiveHeroAttack.toFixed(2)}.`);
-      this.showFlyScreenEffect(hero, enemy, effectiveHeroAttack, effectiveEnemyAttack);
+      this.logAction(
+        systemTranslations[lang].tie
+          .replace("{hero}", hero.name)
+          .replace("{enemy}", enemy.name)
+          .replace("{damage}", effectiveHeroAttack.toFixed(2))
+      );
     }
 
     // Decrease energy after the attack
@@ -237,24 +245,24 @@ class GameEngine {
 
     // Check if the enemy survives
     if (enemy.health <= 0) {
-      this.logAction(`${enemy.name} was defeated!`);
+      this.logAction(systemTranslations[lang].enemyDefeated.replace("{enemy}", enemy.name));
       this.enemyZone.splice(enemyIndex, 1); // Remove defeated enemy
     }
 
     // Check if the hero survives
     if (hero.health <= 0) {
-      this.logAction(`${hero.name} was knocked out.`);
+      this.logAction(systemTranslations[lang].heroDefeated.replace("{hero}", hero.name));
       this.playerZone.splice(heroIndex, 1); // Remove defeated hero
     }
 
     // Check for victory
     if (this.enemyZone.length === 0) {
-      this.endGame("You won!");
+      this.endGame(systemTranslations[lang].victory);
     }
 
     // Check if the player loses because they have no heroes left by turn 15
     if (this.turnCounter >= 15 && this.playerZone.length === 0) {
-      this.endGame("You lost! No more heroes in your deck by turn 15.");
+      this.endGame(systemTranslations[lang].lossNoHeroes); 
     }
 
     this.nextTurn();
@@ -507,10 +515,44 @@ const systemTranslations = {
   en: {
     deployedToZone: "deployed to player zone.",
     zoneFull: "Player zone is full!",
+    energyUsed: "Energy card used. Energy pool increased to",
+    notEnergyCard: "This is not an energy card!",
+    strategyHealthBoost: "All heroes' health increased by {value}.",
+    strategyAttackBoost: "All heroes' attack increased by {value} due to the strategy card.",
+    invalidStrategyEffect: "This strategy card doesn't have a valid effect.",
+    invalidStrategyCard: "This is not a valid strategy card or the strategy doesn't have an effect.",
+    noHeroToAttack: "No hero to attack with.",
+    noEnemyToAttack: "No enemy to attack.",
+    notEnoughEnergy: "Not enough energy to attack!",
+    effectiveAttack: "Effective Hero Attack: {heroAttack}, Effective Enemy Attack: {enemyAttack}.",
+    heroLoses: "{hero} attacked {enemy}, but hero's attack is lower. Hero health reduced by {damage}.",
+    heroWins: "{hero} attacked {enemy}, and hero's attack is higher. Enemy health reduced by {damage}.",
+    tie: "{hero} and {enemy} have the same attack. Both hero and enemy's health reduced by {damage}.",
+    enemyDefeated: "{enemy} was defeated!",
+    heroDefeated: "{hero} was knocked out.",
+    victory: "You won!",
+    lossNoHeroes: "You lost! No more heroes in your deck by turn 15.",
   },
   zh: {
     deployedToZone: "已部署到玩家区域。",
     zoneFull: "玩家区域已满！",
+    energyUsed: "使用了能量卡。能量池增加到",
+    notEnergyCard: "这不是能量卡！",
+    strategyHealthBoost: "所有英雄的健康增加了{value}点。",
+    strategyAttackBoost: "由于策略卡，所有英雄的攻击力增加了{value}点。",
+    invalidStrategyEffect: "此策略卡没有有效效果。",
+    invalidStrategyCard: "这不是有效的策略卡，或者策略没有效果。",
+    noHeroToAttack: "没有英雄可以攻击。",
+    noEnemyToAttack: "没有敌人可以攻击。",
+    notEnoughEnergy: "元气不足，无法攻击！",
+    effectiveAttack: "英雄有效攻击力：{heroAttack}，敌人有效攻击力：{enemyAttack}。",
+    heroLoses: "{hero} 攻击 {enemy}，但英雄攻击较低。英雄生命值减少 {damage}。",
+    heroWins: "{hero} 攻击 {enemy}，英雄攻击较高。敌人生命值减少 {damage}。",
+    tie: "{hero} 和 {enemy} 的攻击相同。英雄和敌人生命值均减少 {damage}。",
+    enemyDefeated: "{enemy} 被击败了！",
+    heroDefeated: "{hero} 被击倒了。",
+    victory: "你赢了！",
+    lossNoHeroes: "你输了！在第 15 回合后卡组中没有英雄。",
   },
 };
 
