@@ -73,18 +73,19 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <!-- End Game Modal -->
-  <div class="modal fade" id="endGameModal" tabindex="-1" aria-labelledby="endGameModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="endGameModalLabel">Game Over</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <div class="modal fade" id="endGameModal" tabindex="-1" aria-labelledby="endGameModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius: 15px; background: rgba(0, 0, 0, 0.85); color: #fff; border: 5px solid #ff6600;">
+        <div class="modal-header" style="border-bottom: 2px solid #ff6600; padding: 15px;">
+          <h5 class="modal-title" id="endGameModalLabel" style="font-size: 2rem; font-weight: bold; color: #ff6600;">Game Over</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="color: #ff6600; opacity: 1;"></button>
         </div>
-        <div class="modal-body">
-          <p id="endGameMessage">You won!</p>  <!-- This is where the dynamic message appears -->
+        <div class="modal-body" style="text-align: center; padding: 20px;">
+          <p id="endGameMessage" style="font-size: 1.5rem; font-weight: bold; color: #ffcc00;">You won!</p>
+          <!-- You can dynamically change this message in your JS -->
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="restartGameBtn">Restart Game</button>
+        <div class="modal-footer" style="border-top: 2px solid #ff6600; justify-content: center;">
+          <button type="button" class="btn btn-primary" id="restartGameBtn" style="background-color: #ff6600; border: none; font-size: 1.2rem; padding: 10px 20px;">Restart Game</button>
         </div>
       </div>
     </div>
