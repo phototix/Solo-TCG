@@ -162,77 +162,83 @@ class GameEngine {
   }
 
   attackEnemy(heroIndex, enemyIndex) {
+    const hero = this.playerZone[heroIndex];
+    const enemy = this.enemyZone[enemyIndex];
 
-      const hero = this.playerZone[heroIndex];
-      const enemy = this.enemyZone[enemyIndex];
+    if (!hero) {
+      this.logAction("No hero to attack with.");
+      return;
+    }
 
-      if (!hero) {
-          this.logAction("No hero to attack with.");
-          return;
-      }
+    if (!enemy) {
+      this.logAction("No enemy to attack.");
+      return;
+    }
 
-      if (!enemy) {
-          this.logAction("No enemy to attack.");
-          return;
-      }
+    // Check if there is enough energy to attack
+    if (this.energyPool < 1) {
+      this.logAction("Not enough energy to attack!");
+      return;
+    }
 
-      // Check if there is enough energy to attack
-      if (this.energyPool < 1) {
-          this.logAction("Not enough energy to attack!");
-          return;
-      }
+    // Luck Factor Calculation
+    const heroLuckFactor = Math.random() * (hero.health / 100); // Luck factor based on hero health
+    const enemyLuckFactor = Math.random() * (enemy.health / 100); // Luck factor based on enemy health
+    
+    console.log(`Hero Luck: ${heroLuckFactor.toFixed(2)}, Enemy Luck: ${enemyLuckFactor.toFixed(2)}`);
 
-      // Apply the boost status to hero and enemy attacks
-      const effectiveHeroAttack = hero.attack;  //  + (this.attackBoost || 0);  // Add attack boost
-      const effectiveEnemyAttack = enemy.attack;  // You can add enemy specific boosts here if needed
+    // Apply the boost status to hero and enemy attacks
+    const effectiveHeroAttack = hero.attack + heroLuckFactor;  // Luck added to hero's attack
+    const effectiveEnemyAttack = enemy.attack + enemyLuckFactor;  // Luck added to enemy's attack
 
-      console.log(`Hero attack: ${effectiveHeroAttack}, Enemy attack: ${effectiveEnemyAttack}`);
+    console.log(`Effective Hero Attack: ${effectiveHeroAttack.toFixed(2)}, Effective Enemy Attack: ${effectiveEnemyAttack.toFixed(2)}`);
 
-      // Compare attack values
-      if (effectiveHeroAttack < effectiveEnemyAttack) {
-          // Hero's attack is lower than the enemy's attack: Hero loses health
-          hero.health -= effectiveEnemyAttack;
-          this.logAction(`${hero.name} attacked ${enemy.name}, but hero's attack is lower.`);
-      } else if (effectiveHeroAttack > effectiveEnemyAttack) {
-          // Hero's attack is higher than the enemy's attack: Enemy loses health
-          enemy.health -= effectiveHeroAttack;
-          this.logAction(`${hero.name} attacked ${enemy.name}, and hero's attack is higher. `);
-      } else {
-          // Both have the same attack: Both lose health
-          hero.health -= effectiveHeroAttack;
-          enemy.health -= effectiveEnemyAttack;
-          this.logAction(`${hero.name} and ${enemy.name} have the same attack.`);
-      }
+    // Compare attack values and use luck to determine who wins
+    if (effectiveHeroAttack < effectiveEnemyAttack) {
+      // Hero's attack is lower than the enemy's attack: Hero loses health
+      hero.health -= effectiveEnemyAttack;
+      this.logAction(`${hero.name} attacked ${enemy.name}, but hero's attack is lower. Hero health reduced by ${effectiveEnemyAttack.toFixed(2)}.`);
+    } else if (effectiveHeroAttack > effectiveEnemyAttack) {
+      // Hero's attack is higher than the enemy's attack: Enemy loses health
+      enemy.health -= effectiveHeroAttack;
+      this.logAction(`${hero.name} attacked ${enemy.name}, and hero's attack is higher. Enemy health reduced by ${effectiveHeroAttack.toFixed(2)}.`);
+    } else {
+      // Both have the same attack: Both lose health
+      hero.health -= effectiveHeroAttack;
+      enemy.health -= effectiveEnemyAttack;
+      this.logAction(`${hero.name} and ${enemy.name} have the same attack. Both hero and enemy's health reduced by ${effectiveHeroAttack.toFixed(2)}.`);
+    }
 
-      // Decrease energy after the attack
-      this.energyPool -= 1;
-      this.logAction(`Energy pool decreased to ${this.energyPool} after attack.`);
+    // Decrease energy after the attack
+    this.energyPool -= 1;
+    this.logAction(`Energy pool decreased to ${this.energyPool} after attack.`);
 
-      // Check if the enemy survives
-      if (enemy.health <= 0) {
-          this.logAction(`${enemy.name} was defeated!`);
-          this.enemyZone.splice(enemyIndex, 1); // Remove defeated enemy
-      }
+    // Check if the enemy survives
+    if (enemy.health <= 0) {
+      this.logAction(`${enemy.name} was defeated!`);
+      this.enemyZone.splice(enemyIndex, 1); // Remove defeated enemy
+    }
 
-      // Check if the hero survives
-      if (hero.health <= 0) {
-          this.logAction(`${hero.name} was knocked out.`);
-          this.playerZone.splice(heroIndex, 1); // Remove defeated hero
-      }
+    // Check if the hero survives
+    if (hero.health <= 0) {
+      this.logAction(`${hero.name} was knocked out.`);
+      this.playerZone.splice(heroIndex, 1); // Remove defeated hero
+    }
 
-      // Check for victory
-      if (this.enemyZone.length === 0) {
-          this.endGame("You won!");
-      }
+    // Check for victory
+    if (this.enemyZone.length === 0) {
+      this.endGame("You won!");
+    }
 
-      // Check if the player loses because they have no heroes left by turn 15
-      if (this.turnCounter >= 15 && this.playerZone.length === 0) {
-          this.endGame("You lost! No more heroes in your deck by turn 15.");
-      }
+    // Check if the player loses because they have no heroes left by turn 15
+    if (this.turnCounter >= 15 && this.playerZone.length === 0) {
+      this.endGame("You lost! No more heroes in your deck by turn 15.");
+    }
 
-      this.nextTurn();
-      this.render(); // Re-render the game state
+    this.nextTurn();
+    this.render(); // Re-render the game state
   }
+
 
   nextTurn() {
       // Check if the player has more than 10 cards in hand before proceeding
