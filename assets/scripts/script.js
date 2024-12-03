@@ -12,23 +12,6 @@ class Card {
 
 class GameEngine {
 
-  const systemTranslations = {
-    en: {
-      deployedToZone: "deployed to player zone.",
-      zoneFull: "Player zone is full!",
-    },
-    zh: {
-      deployedToZone: "已部署到玩家区域。",
-      zoneFull: "玩家区域已满！",
-    },
-  };
-
-  // Detect the language from the script tag
-  const userLanguage = new URL(document.currentScript.src).searchParams.get("lang") || "en";
-
-  // Ensure language fallback
-  const lang = systemTranslations[userLanguage] ? userLanguage : "en";
-
   constructor() {
     this.playerDeck = [];
     this.enemyDeck = [];
@@ -126,9 +109,9 @@ class GameEngine {
     if (this.playerZone.length < 3) {
       const hero = this.playerHand.splice(cardIndex, 1)[0];
       this.playerZone.push(hero);
-      this.logAction(`${hero.name} ${translations[lang].deployedToZone}`);
+      this.logAction(`${hero.name} ${systemTranslations[lang].deployedToZone}`);
     } else {
-      this.logAction(translations[lang].zoneFull);
+      this.logAction(systemTranslations[lang].zoneFull);
     }
     this.render();
   }
@@ -519,4 +502,22 @@ class GameEngine {
 
 // Initialize game
 const game = new GameEngine();
+
+const systemTranslations = {
+  en: {
+    deployedToZone: "deployed to player zone.",
+    zoneFull: "Player zone is full!",
+  },
+  zh: {
+    deployedToZone: "已部署到玩家区域。",
+    zoneFull: "玩家区域已满！",
+  },
+};
+
+// Detect the language from the script tag
+const userLanguage = new URL(document.currentScript.src).searchParams.get("lang") || "en";
+
+// Ensure language fallback
+const lang = systemTranslations[userLanguage] ? userLanguage : "en";
+
 game.initializeGame();
