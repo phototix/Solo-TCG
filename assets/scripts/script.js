@@ -311,8 +311,12 @@ class GameEngine {
     }
   }
 
-  logAction(action) {
-    this.log.innerText = action;
+  // Replace logAction to use translation function
+  logAction(text) {
+    const translatedText = translateToChinese(text);
+    const logEntry = document.createElement("div");
+    logEntry.textContent = translatedText;
+    this.log.appendChild(logEntry);
   }
 
   endGame(message) {
@@ -495,6 +499,40 @@ class GameEngine {
     setTimeout(() => {
       flyItem.remove();
     }, 6000); // Match the animation duration (6 seconds)
+  }
+
+  // Translation function
+  function translateToChinese(text) {
+    const translations = {
+      "Game started. Draw 2 cards.": "游戏开始，抽两张卡。",
+      "Player zone is full!": "玩家区域已满！",
+      "Energy card used. Energy pool increased to": "使用了元气卡，能量池增加到",
+      "This is not an energy card!": "这不是元气卡！",
+      "This strategy card doesn't have a valid effect.": "此策略卡没有有效效果。",
+      "Not enough energy to attack!": "能量不足，无法攻击！",
+      "No hero to attack with.": "没有英雄可以攻击。",
+      "No enemy to attack.": "没有敌人可以攻击。",
+      "Hero health reduced by": "英雄生命减少了",
+      "Enemy health reduced by": "敌人生命减少了",
+      "Both hero and enemy's health reduced by": "英雄和敌人的生命都减少了",
+      "You won!": "你赢了！",
+      "You lost! No more heroes in your deck by turn 15.": "你输了！第15回合时，你的卡组中没有更多的英雄。",
+      "You lost! You ran out of heroes in your deck and zone.": "你输了！你的卡组和区域中没有英雄了。",
+      "You cannot proceed to the next turn with more than 3 cards in hand.": "你手牌超过三张，无法继续到下一回合。",
+      "Turn": "回合",
+      "started.": "开始了。",
+      "All heroes' luck increased by": "所有英雄的运气增加了",
+      "All heroes' attack increased by": "所有英雄的攻击力增加了",
+      "Effective Hero Attack": "有效的英雄攻击",
+      "Effective Enemy Attack": "有效的敌人攻击",
+      "No more heroes in your deck and zone.": "你的卡组和区域中没有更多的英雄。",
+      "This is not a valid strategy card or the strategy doesn't have an effect.": "这不是有效的策略卡，或者策略没有效果。",
+      "Enemy was defeated!": "敌人被击败！",
+      "Hero was knocked out.": "英雄被淘汰。"
+    };
+
+    // Return the Chinese translation if it exists, otherwise return the original text
+    return translations[text] || text;
   }
 
 }
