@@ -200,15 +200,18 @@ class GameEngine {
       // Hero's attack is lower than the enemy's attack: Hero loses health
       hero.health -= effectiveEnemyAttack;
       this.logAction(`${hero.name} attacked ${enemy.name}, but hero's attack is lower. Hero health reduced by ${effectiveEnemyAttack.toFixed(2)}.`);
+      this.showFlyScreenEffect(hero, enemy, effectiveHeroAttack, effectiveEnemyAttack);
     } else if (effectiveHeroAttack > effectiveEnemyAttack) {
       // Hero's attack is higher than the enemy's attack: Enemy loses health
       enemy.health -= effectiveHeroAttack;
       this.logAction(`${hero.name} attacked ${enemy.name}, and hero's attack is higher. Enemy health reduced by ${effectiveHeroAttack.toFixed(2)}.`);
+      this.showFlyScreenEffect(hero, enemy, effectiveHeroAttack, effectiveEnemyAttack);
     } else {
       // Both have the same attack: Both lose health
       hero.health -= effectiveHeroAttack;
       enemy.health -= effectiveEnemyAttack;
       this.logAction(`${hero.name} and ${enemy.name} have the same attack. Both hero and enemy's health reduced by ${effectiveHeroAttack.toFixed(2)}.`);
+      this.showFlyScreenEffect(hero, enemy, effectiveHeroAttack, effectiveEnemyAttack);
     }
 
     // Decrease energy after the attack
