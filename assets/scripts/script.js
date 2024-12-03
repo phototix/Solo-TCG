@@ -41,6 +41,7 @@ class GameEngine {
 
     this.render();
     document.getElementById("next-turn").addEventListener("click", () => this.nextTurn());
+    this.logAction("Game started. Draw 2 cards.");
   }
 
   buildDeck() {
