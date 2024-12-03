@@ -412,7 +412,7 @@ class GameEngine {
           // Use translations for dynamic language support
           const attackText = systemTranslations[lang]?.attack || "Attack";
           const luckText = systemTranslations[lang]?.luck || "Luck";
-          const enemyName = card.name || systemTranslations[lang]?.enemy || "Enemy";
+          const enemyName = hero.name || systemTranslations[lang]?.enemy || "Enemy";
 
           // Show hero's stats and the boost status
           const attackWithBoost = hero.attack + (this.attackBoost || 0);  // Apply attack boost if any
