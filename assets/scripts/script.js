@@ -221,6 +221,7 @@ class GameEngine {
           .replace("{enemy}", enemy.name)
           .replace("{damage}", effectiveEnemyAttack.toFixed(2))
       );
+      this.showFlyScreenEffect(hero, enemy, effectiveHeroAttack, effectiveEnemyAttack);
     } else if (effectiveHeroAttack > effectiveEnemyAttack) {
       enemy.health -= effectiveHeroAttack;
       this.logAction(
@@ -229,6 +230,7 @@ class GameEngine {
           .replace("{enemy}", enemy.name)
           .replace("{damage}", effectiveHeroAttack.toFixed(2))
       );
+      this.showFlyScreenEffect(hero, enemy, effectiveHeroAttack, effectiveEnemyAttack);
     } else {
       hero.health -= effectiveHeroAttack;
       enemy.health -= effectiveEnemyAttack;
@@ -238,6 +240,7 @@ class GameEngine {
           .replace("{enemy}", enemy.name)
           .replace("{damage}", effectiveHeroAttack.toFixed(2))
       );
+      this.showFlyScreenEffect(hero, enemy, effectiveHeroAttack, effectiveEnemyAttack);
     }
 
     // Decrease energy after the attack
