@@ -42,12 +42,12 @@ class GameEngine {
 
     this.render();
     document.getElementById("next-turn").addEventListener("click", () => this.nextTurn());
-    this.logAction(translations[lang].gameStarted);
+    this.logAction(systemTranslations[lang].gameStarted);
   }
 
   buildDeck() {
       // Player deck
-      const heroes = translations[lang].heroes;
+      const heroes = systemTranslations[lang].heroes;
 
       for (let i = 0; i < 16; i++) {
           const attackValue = 5000 - (i + 1) * 500;
@@ -56,7 +56,7 @@ class GameEngine {
           }
       }
 
-      const strategies = translations[lang].strategies;
+      const strategies = systemTranslations[lang].strategies;
 
       for (let i = 0; i < 8; i++) {
           this.playerDeck.push(new Card(strategies[i], "strategy", `/assets/images/strategy/strategy-${i+1}.png?version=1.0`, 1, 2, { type: "health", value: 1 }));
@@ -73,7 +73,7 @@ class GameEngine {
       }
 
       // Enemy deck
-      const enemies = translations[lang].enemies;
+      const enemies = systemTranslations[lang].enemies;
 
       for (let i = 0; i < 18; i++) {
           const effect = i % 3 === 0 ? { type: "burn", cooldown: 2 } : null;
