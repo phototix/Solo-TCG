@@ -63,7 +63,7 @@ body {
 }
 
 /* Card styles */
-#energy-cards .game-card {
+#enemy-cards .game-card {
   display: inline-block;
   width: 80px;
   height: 130px;
@@ -78,7 +78,7 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-#energy-cards .game-card:hover {
+#enemy-cards .game-card:hover {
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
   transform: scale(1.05);
   transition: 0.2s ease;
