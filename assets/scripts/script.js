@@ -457,7 +457,7 @@ class GameEngine {
     // Hero avatar
     const heroAvatar = document.createElement("div");
     heroAvatar.classList.add("fly-avatar");
-    heroAvatar.style.backgroundImage = `url(${hero.avatar})`; // Assuming hero.avatar contains the avatar image URL
+    heroAvatar.style.backgroundImage = `url(${hero.image})`; // Assuming hero.avatar contains the avatar image URL
     flyItem.appendChild(heroAvatar);
 
     // Attack text
@@ -468,7 +468,7 @@ class GameEngine {
     // Enemy avatar
     const enemyAvatar = document.createElement("div");
     enemyAvatar.classList.add("fly-avatar");
-    enemyAvatar.style.backgroundImage = `url(${enemy.avatar})`; // Assuming enemy.avatar contains the avatar image URL
+    enemyAvatar.style.backgroundImage = `url(${enemy.image})`; // Assuming enemy.avatar contains the avatar image URL
     flyItem.appendChild(enemyAvatar);
 
     // Add the item to the container
