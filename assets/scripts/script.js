@@ -193,6 +193,7 @@ class GameEngine {
     const effectiveEnemyAttack = enemy.attack + enemyLuckFactor;  // Luck added to enemy's attack
 
     console.log(`Effective Hero Attack: ${effectiveHeroAttack.toFixed(2)}, Effective Enemy Attack: ${effectiveEnemyAttack.toFixed(2)}`);
+    this.logAction(`Effective Hero Attack: ${effectiveHeroAttack.toFixed(2)}, Effective Enemy Attack: ${effectiveEnemyAttack.toFixed(2)}`);
 
     // Compare attack values and use luck to determine who wins
     if (effectiveHeroAttack < effectiveEnemyAttack) {
@@ -212,7 +213,6 @@ class GameEngine {
 
     // Decrease energy after the attack
     this.energyPool -= 1;
-    this.logAction(`Energy pool decreased to ${this.energyPool} after attack.`);
 
     // Check if the enemy survives
     if (enemy.health <= 0) {
