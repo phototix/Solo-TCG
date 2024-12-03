@@ -477,10 +477,8 @@ class GameEngine {
     // Remove the item after the animation ends
     setTimeout(() => {
       flyItem.remove();
-    }, 3000); // Match the animation duration (3 seconds)
+    }, 6000); // Match the animation duration (6 seconds)
   }
-
-
 
 }
 

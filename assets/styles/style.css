@@ -233,13 +233,33 @@ body {
   }
 }
 
-/* Flying element with fire effect */
+/* Keyframes for flying animation with a pause in the middle */
+@keyframes fly-across {
+  0% {
+    left: -100%;
+    opacity: 0;
+  }
+  40% {
+    left: 50%;
+    opacity: 1;
+  }
+  60% {
+    left: 50%;
+    opacity: 1; /* Pause for 2 seconds at 50% */
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+/* Adjust fly-screen-item for slower speed */
 .fly-screen-item {
   position: absolute;
   display: flex;
   align-items: center;
   gap: 10px;
-  animation: fly-across 3s ease-in-out;
+  animation: fly-across 6s ease-in-out; /* Total duration is 6 seconds, with 2 seconds for pause */
   white-space: nowrap;
   font-size: 24px;
   font-weight: bold;
@@ -274,24 +294,6 @@ body {
   }
   100% {
     opacity: 1;
-  }
-}
-
-/* Keyframes for flying animation */
-@keyframes fly-across {
-  0% {
-    left: -100%;
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    left: 100%;
-    opacity: 0;
   }
 }
 
