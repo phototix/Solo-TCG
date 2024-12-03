@@ -240,16 +240,15 @@ body {
     opacity: 0;
   }
   40% {
-    left: 50%;
+    left: 25%;
     opacity: 1;
   }
   60% {
-    left: 50%;
+    left: 25%;
     opacity: 1; /* Pause for 2 seconds at 50% */
   }
   100% {
     display: none;
-    left: 100%;
     opacity: 0;
   }
 }
