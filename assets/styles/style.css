@@ -10,7 +10,7 @@ body {
   flex-direction: column;
   min-height: 100vh;
   background: linear-gradient(to bottom, rgba(248, 249, 250, 0.8), rgba(248, 249, 250, 0)) center center,
-              url('/assets/images/background-001.jpg') center center;
+              url('/assets/images/background-001.jpg') no-repeat center center;
 }
 
 #game-container {
