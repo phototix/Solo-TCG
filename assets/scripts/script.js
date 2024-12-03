@@ -444,6 +444,39 @@ class GameEngine {
       this.updateBoostPool(this.attackBoost, this.healthBoost);
   }
 
+  showFlyScreenEffect(hero, enemy, heroAttack, enemyAttack) {
+    const flyScreenContainer = document.getElementById("battle-fly-screen");
+
+    // Create a new fly screen item
+    const flyItem = document.createElement("div");
+    flyItem.classList.add("fly-screen-item");
+
+    // Hero avatar
+    const heroAvatar = document.createElement("div");
+    heroAvatar.classList.add("fly-avatar");
+    heroAvatar.style.backgroundImage = `url(${hero.avatar})`; // Assuming hero.avatar contains the avatar image URL
+    flyItem.appendChild(heroAvatar);
+
+    // Attack text
+    const attackText = document.createElement("span");
+    attackText.innerText = `Effective Hero Attack: ${heroAttack.toFixed(2)}, Effective Enemy Attack: ${enemyAttack.toFixed(2)}`;
+    flyItem.appendChild(attackText);
+
+    // Enemy avatar
+    const enemyAvatar = document.createElement("div");
+    enemyAvatar.classList.add("fly-avatar");
+    enemyAvatar.style.backgroundImage = `url(${enemy.avatar})`; // Assuming enemy.avatar contains the avatar image URL
+    flyItem.appendChild(enemyAvatar);
+
+    // Add the item to the container
+    flyScreenContainer.appendChild(flyItem);
+
+    // Remove the item after the animation ends
+    setTimeout(() => {
+      flyItem.remove();
+    }, 3000); // Match the animation duration (3 seconds)
+  }
+
 
 }
 

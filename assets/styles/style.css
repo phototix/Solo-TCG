@@ -232,3 +232,57 @@ body {
     max-width: 800px;
   }
 }
+
+/* Container for the flying screen effect */
+.fly-screen-container {
+  position: fixed;
+  top: 20%;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  pointer-events: none; /* Ensures it doesn't interfere with user interactions */
+  overflow: hidden;
+  z-index: 9999;
+}
+
+/* Flying element animation */
+.fly-screen-item {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: fly-across 3s ease-in-out;
+  white-space: nowrap;
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* Keyframes for flying animation */
+@keyframes fly-across {
+  0% {
+    left: -100%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+/* Avatar styles */
+.fly-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}
