@@ -387,8 +387,8 @@ class GameEngine {
           detailsDiv.className = "card-details";
 
           // Show hero's stats and the boost status
-          const attackWithBoost = hero.attack;  //  + (this.attackBoost || 0);  // Apply attack boost if any
-          const healthWithBoost = hero.health;  //  + (this.healthBoost || 0);  // Apply health boost if any
+          const attackWithBoost = hero.attack + (this.attackBoost || 0);  // Apply attack boost if any
+          const healthWithBoost = hero.health + (this.healthBoost || 0);  // Apply health boost if any
           detailsDiv.innerText = `${hero.name || "Hero"}\nAttack: ${attackWithBoost}\nLuck: ${healthWithBoost}`;
 
           cardDiv.appendChild(detailsDiv);
