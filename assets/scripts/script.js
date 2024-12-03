@@ -132,7 +132,7 @@ class GameEngine {
           } else if (card.effect.type === "boost") {
               // Apply attack boost to all heroes in player deck
               attackBoost = card.effect.value;
-              this.playerDeck.forEach(hero => {
+              this.playerZone.forEach(hero => {
                   if (hero.type === "hero") {
                       hero.attack += attackBoost;  // Increase hero's attack
                   }
