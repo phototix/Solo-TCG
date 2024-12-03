@@ -463,9 +463,9 @@ class GameEngine {
           detailsDiv.className = "card-details";
 
           // Use translations for dynamic language support
-          const attackText = translations[lang]?.attack || "Attack";
-          const luckText = translations[lang]?.luck || "Luck";
-          const enemyName = card.name || translations[lang]?.enemy || "Enemy";
+          const attackText = systemTranslations[lang]?.attack || "Attack";
+          const luckText = systemTranslations[lang]?.luck || "Luck";
+          const enemyName = card.name || systemTranslations[lang]?.enemy || "Enemy";
 
           detailsDiv.innerText = `${enemyName}\n${attackText}: ${card.attack || 0}\n${luckText}: ${card.health || 0}`;
           cardDiv.appendChild(detailsDiv);
