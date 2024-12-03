@@ -128,7 +128,7 @@ class GameEngine {
                   hero.health += healthBoost;  // Apply health boost to heroes
               });
 
-              this.logAction(`All heroes' health increased by ${healthBoost}.`);
+              this.logAction(`All heroes' luck increased by ${healthBoost}.`);
           } else if (card.effect.type === "boost") {
               // Apply attack boost to all heroes in player deck
               attackBoost = card.effect.value;
@@ -192,16 +192,16 @@ class GameEngine {
       if (effectiveHeroAttack < effectiveEnemyAttack) {
           // Hero's attack is lower than the enemy's attack: Hero loses health
           hero.health -= effectiveEnemyAttack;
-          this.logAction(`${hero.name} attacked ${enemy.name}, but hero's attack is lower. Hero health reduced by ${effectiveEnemyAttack}.`);
+          this.logAction(`${hero.name} attacked ${enemy.name}, but hero's attack is lower.`);
       } else if (effectiveHeroAttack > effectiveEnemyAttack) {
           // Hero's attack is higher than the enemy's attack: Enemy loses health
           enemy.health -= effectiveHeroAttack;
-          this.logAction(`${hero.name} attacked ${enemy.name}, and hero's attack is higher. Enemy health reduced by ${effectiveHeroAttack}.`);
+          this.logAction(`${hero.name} attacked ${enemy.name}, and hero's attack is higher. `);
       } else {
           // Both have the same attack: Both lose health
           hero.health -= effectiveHeroAttack;
           enemy.health -= effectiveEnemyAttack;
-          this.logAction(`${hero.name} and ${enemy.name} have the same attack. Both hero and enemy's health reduced by ${effectiveHeroAttack}.`);
+          this.logAction(`${hero.name} and ${enemy.name} have the same attack.`);
       }
 
       // Decrease energy after the attack
@@ -339,12 +339,12 @@ class GameEngine {
           detailsDiv.className = "card-details";
 
           if (card.type === "hero") {
-              detailsDiv.innerText = `${card.name || "Card"}\nAttack: ${card.attack || 0}\nHealth: ${card.health || 0}`;
+              detailsDiv.innerText = `${card.name || "Card"}\nAttack: ${card.attack || 0}\nLuck: ${card.health || 0}`;
           } else if (card.type === "energy") {
               detailsDiv.innerText = `${card.name || "Card"}`;
           } else if (card.type === "strategy") {
               if (card.effect.type === "health") {
-                  detailsDiv.innerText = `${card.name || "Card"}\nEffect: Health +${card.effect.value}`;
+                  detailsDiv.innerText = `${card.name || "Card"}\nEffect: Luck +${card.effect.value}`;
               } else if (card.effect.type === "boost") {
                   detailsDiv.innerText = `${card.name || "Card"}\nEffect: Attack +${card.effect.value}`;
               } else {
@@ -383,7 +383,7 @@ class GameEngine {
           // Show hero's stats and the boost status
           const attackWithBoost = hero.attack + (this.attackBoost || 0);  // Apply attack boost if any
           const healthWithBoost = hero.health + (this.healthBoost || 0);  // Apply health boost if any
-          detailsDiv.innerText = `${hero.name || "Hero"}\nAttack: ${attackWithBoost}\nHealth: ${healthWithBoost}`;
+          detailsDiv.innerText = `${hero.name || "Hero"}\nAttack: ${attackWithBoost}\nLuck: ${healthWithBoost}`;
 
           cardDiv.appendChild(detailsDiv);
           zoneDiv.appendChild(cardDiv);
@@ -422,7 +422,7 @@ class GameEngine {
           // Card details overlay
           const detailsDiv = document.createElement("div");
           detailsDiv.className = "card-details";
-          detailsDiv.innerText = `${card.name || "Enemy"}\nAttack: ${card.attack || 0}\nHealth: ${card.health || 0}`;
+          detailsDiv.innerText = `${card.name || "Enemy"}\nAttack: ${card.attack || 0}\nLuck: ${card.health || 0}`;
           cardDiv.appendChild(detailsDiv);
 
           // Enemy attack interaction
