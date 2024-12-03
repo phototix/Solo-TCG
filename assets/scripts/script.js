@@ -182,8 +182,8 @@ class GameEngine {
     }
 
     // Luck Factor Calculation
-    const heroLuckFactor = Math.random() * (hero.health / 100); // Luck factor based on hero health
-    const enemyLuckFactor = Math.random() * (enemy.health / 100); // Luck factor based on enemy health
+    const heroLuckFactor = Math.random() * (hero.health); // Luck factor based on hero health
+    const enemyLuckFactor = Math.random() * (enemy.health); // Luck factor based on enemy health
     
     console.log(`Hero Luck: ${heroLuckFactor.toFixed(2)}, Enemy Luck: ${enemyLuckFactor.toFixed(2)}`);
 
