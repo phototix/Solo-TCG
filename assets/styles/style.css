@@ -330,18 +330,18 @@ body {
   position: absolute;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
   animation: fly-across 10s ease-in-out; /* Total duration is 10 seconds, with 2 seconds for pause */
   white-space: nowrap;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: bold;
   color: #fff;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-  padding: 10px 20px;
+  padding: 5px 10px;
   border-radius: 10px;
   background: linear-gradient(45deg, #ff4500, #ffae42, #ffd700); /* Fire gradient */
   border: 3px solid rgba(255, 69, 0, 0.7); /* Fire border color */
-  box-shadow: 0 0 20px 10px rgba(255, 69, 0, 0.8); /* Fire glow */
+  box-shadow: 0 0 10px 5px rgba(255, 69, 0, 0.8); /* Fire glow */
   overflow: hidden;
   z-index: 3;
 }
