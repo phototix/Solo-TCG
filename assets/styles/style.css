@@ -63,7 +63,28 @@ body {
 }
 
 /* Card styles */
-.game-card {
+#energy-cards .game-card {
+  display: inline-block;
+  width: 80px;
+  height: 130px;
+  margin: 10px;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #000;
+  border-radius: 5px;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#energy-cards .game-card:hover {
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+  transition: 0.2s ease;
+}
+
+#hand-cards .game-card {
   display: inline-block;
   width: 100px;
   height: 150px;
@@ -78,7 +99,28 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.game-card:hover {
+#hand-cards .game-card:hover {
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+  transition: 0.2s ease;
+}
+
+#zone-cards .game-card {
+  display: inline-block;
+  width: 100px;
+  height: 150px;
+  margin: 10px;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #000;
+  border-radius: 5px;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#zone-cards .game-card:hover {
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
   transform: scale(1.05);
   transition: 0.2s ease;
