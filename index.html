@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Embers of the Three Kingdoms | 《三国烽烟》</title>
     <link rel="stylesheet" href="assets/styles/index.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#000000">
 </head>
 <body>
 
@@ -30,5 +32,12 @@
     </div>
 
     <script src="assets/scripts/index.js?version=1.0"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/service-worker.js").then((registration) => {
+          console.log("Service Worker registered with scope:", registration.scope);
+        });
+      }
+    </script>
 </body>
 </html>

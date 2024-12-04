@@ -1,0 +1,17 @@
+{
+  "name": "三国烽烟",
+  "short_name": "三国",
+  "description": "Experience the legendary battles and strategies of 三国烽烟.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/assets/images/logo.jpg",
+      "type": "image/png",
+      "sizes": "224x224"
+    }
+  ]
+}
